@@ -1,0 +1,18 @@
+.input-picker:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+    transition: all .5s;
+}
+
+.filter-btn {
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+}
+
+.filter-btn:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+    transition: all .5s;
+}
+
+.student-table {
+    padding: 15px;
+    border-color: red;
+}
