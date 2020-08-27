@@ -1,38 +1,38 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { FlexboxGrid, Col, Loader } from 'rsuite';
 import AttendenceCard from './AttendenceCard';
-import { attendenceStore } from '../../../mobx/store/store.attendence';
 import { observer } from 'mobx-react';
+import { dashboardStore } from '../../../mobx/store/store.dashboard';
 
 interface Props {
-    attendenceStore: typeof attendenceStore
+    dashboardStore: typeof dashboardStore
 }
 
 @observer
-export default class AttendenceContainer extends PureComponent<Props, {}> {
+export default class AttendenceContainer extends React.Component<Props, {}> {
 
     constructor(props: Props) {
         super(props);
     }
 
     render() {
-        let { attendenceStore } = this.props;
+        let data = this.props.dashboardStore.attendence;
         return (
             <div style={{ width: '100%', transition: 'all 1s', marginBottom: 45 }}>
-                <h4 style={{ marginBottom: 45 }}>Attendence <span style={{ fontSize: 16 }}>(today)</span> </h4>
-                {attendenceStore.fetching ? <Loader content='Please wait...' /> : <FlexboxGrid justify='space-around'>
+                <h4 style={{ marginBottom: 25 }}>Attendence <span style={{fontSize:15}}>(today)</span></h4>
+                {data ? <FlexboxGrid justify='space-around'>
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={6}>
-                        <AttendenceCard title={attendenceStore.studentAttendence.title} presentPercent={attendenceStore.studentPresentPer} absentPercent={attendenceStore.studentAbsentPer} total={attendenceStore.totalStudent} present={attendenceStore.studentAttendence.totalPresent} absent={attendenceStore.studentAttendence.totalAbsent} />
+                        <AttendenceCard title="Student" presentPercent={data.student.prePer} absentPercent={data.student.absPer} total={data.student.total} present={data.student.present} absent={data.student.absent} />
                     </FlexboxGrid.Item>
 
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={6}>
-                        <AttendenceCard title={attendenceStore.teacherAttendence.title} presentPercent={attendenceStore.teacherPresentPer} absentPercent={attendenceStore.teacherAbsentPer} total={attendenceStore.totalTeacher} present={attendenceStore.teacherAttendence.totalPresent} absent={attendenceStore.teacherAttendence.totalAbsent} />
+                        <AttendenceCard title="Teacher" presentPercent={data.teacher.prePer} absentPercent={data.teacher.absPer} total={data.teacher.total} present={data.teacher.present} absent={data.teacher.absent} />
                     </FlexboxGrid.Item>
 
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={6}>
-                        <AttendenceCard title={attendenceStore.overallAttendence.title} presentPercent={attendenceStore.overallPresentPer} absentPercent={attendenceStore.overallAbsentPer} total={attendenceStore.overall} present={attendenceStore.overallAttendence.totalPresent} absent={attendenceStore.overallAttendence.totalAbsent} />
+                        <AttendenceCard title="Overall" presentPercent={data.overall.prePer} absentPercent={data.overall.absPer} total={data.overall.total} present={data.overall.present} absent={data.overall.absent} />
                     </FlexboxGrid.Item>
-                </FlexboxGrid>}
+                </FlexboxGrid> : <Loader content='Please wait...' />}
             </div>
         )
     }

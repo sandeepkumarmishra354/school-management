@@ -1,87 +1,42 @@
-import { observable, computed } from "mobx";
+import { observable, action } from "mobx";
+import { AttendenceApi, ApiResponse } from "../../axios/api";
+import { notificationHelper } from "../../utils/NotificationHelper";
 
-type AttendenceOptions = {
-    title: string,
-    totalPresent: number,
-    totalAbsent: number,
+export interface AttendenceData {
+    uuid: string,
+    st_uuid: string,
+    status: 'PRESENT' | 'ABSENT',
+    type: 'TEACHER' | 'STUDENT',
+    fullName: string,
+    section: string,
+    class: number,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 class AttendenceStore {
-    @observable studentAttendence: AttendenceOptions;
-    @observable teacherAttendence: AttendenceOptions;
-    @observable overallAttendence: AttendenceOptions;
-    @observable fetching = true;
+    @observable attendenceList: Array<AttendenceData> = [];
+    @observable fetching = false;
 
-    constructor() {
-        this.studentAttendence = {
-            title: 'Students',
-            totalAbsent: 12,
-            totalPresent: 67
-        };
-        this.teacherAttendence = {
-            title: 'Teachers',
-            totalAbsent: 32,
-            totalPresent: 67
-        };
-        this.overallAttendence = {
-            title: 'Overall',
-            totalAbsent: 44,
-            totalPresent: 134
-        };
-        setTimeout(() => {
+    @action
+    public fetch = async (type: string = 'TEACHER') => {
+        try {
+            this.fetching = true;
+            let res = await AttendenceApi.get<ApiResponse>('/list', {
+                params: { type }
+            });
             this.fetching = false;
-        }, 2000);
-    }
-
-    @computed
-    public get totalStudent(): number {
-        return this.studentAttendence.totalAbsent + this.studentAttendence.totalPresent;
-    }
-
-    @computed
-    public get totalTeacher(): number {
-        return this.teacherAttendence.totalAbsent + this.teacherAttendence.totalPresent;
-    }
-
-    @computed
-    public get overall(): number {
-        return this.overallAttendence.totalAbsent + this.overallAttendence.totalPresent;
-    }
-
-    @computed
-    public get teacherPresentPer(): number {
-        let per = (this.teacherAttendence.totalPresent * 100) / this.totalTeacher;
-        return parseInt(per.toString());
-    }
-
-    @computed
-    public get teacherAbsentPer(): number {
-        let per = (this.teacherAttendence.totalAbsent * 100) / this.totalTeacher;
-        return parseInt(per.toString());
-    }
-
-    @computed
-    public get studentAbsentPer(): number {
-        let per = (this.studentAttendence.totalAbsent * 100) / this.totalStudent;
-        return parseInt(per.toString());
-    }
-
-    @computed
-    public get studentPresentPer(): number {
-        let per = (this.studentAttendence.totalPresent * 100) / this.totalStudent;
-        return parseInt(per.toString());
-    }
-
-    @computed
-    public get overallPresentPer(): number {
-        let per = (this.overallAttendence.totalPresent * 100) / this.overall;
-        return parseInt(per.toString());
-    }
-
-    @computed
-    public get overallAbsentPer(): number {
-        let per = (this.overallAttendence.totalAbsent * 100) / this.overall;
-        return parseInt(per.toString());
+            let data = res.data;
+            if(data.status === 200) {
+                this.attendenceList = data.payload.data;
+            } else {
+                notificationHelper.showError(data.message);
+            }
+        } catch(err) {
+            console.error(err);
+            this.fetching = false;
+            notificationHelper.showError(err.message);
+        }
     }
 }
 

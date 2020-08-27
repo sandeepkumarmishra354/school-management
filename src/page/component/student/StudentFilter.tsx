@@ -1,72 +1,71 @@
 import React, { Component, CSSProperties } from 'react';
-import { FlexboxGrid, InputPicker, Col, Button } from 'rsuite';
-import { storeClassSection } from '../../../mobx/store/store.class_sec';
-import './styles/students.css';
+import { InputPicker, Button } from 'rsuite';
+import { storeStudent } from '../../../mobx/store/student/store.student';
+import { metaDataStore } from '../../../mobx/store/store.meta';
 
 interface Props {
-  storeClassSection: typeof storeClassSection
-}
-const headingStyle: CSSProperties = {
-  marginBottom: 15,
-  color: '#535C68',
-  fontWeight: 300
+  storeMeta: typeof metaDataStore,
+  storeStudent: typeof storeStudent
 }
 
 const pickerStyle: CSSProperties = {
   minWidth: 250,
-  borderColor: '#BB2CD9',
+  borderRadius: 0,
+  marginRight: 15
+}
+const styles: CSSProperties = {
+  width: '100%', marginBottom: 15,
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  padding: 20
 }
 export default class StudentFilter extends Component<Props, {}> {
 
-  private readonly col = 20;
-  private readonly md = 6;
+  private _class = -1;
+  private section = 'ALL';
+  private status = 'ALL';
 
   render() {
     return (
-      <div style={{ width: '100%' }} className='filter-div'>
-        <FlexboxGrid style={{ marginLeft: 15 }} justify='space-around' align='middle'>
-          <FlexboxGrid.Item
-            componentClass={Col}
-            style={{ marginBottom: 15 }}
-            colspan={this.col} md={this.md}>
-            <h5 style={headingStyle}>Select Class</h5>
-            <InputPicker
-              className="input-picker"
-              data={this.props.storeClassSection.classData}
-              style={pickerStyle}
-              labelKey="name"
-              placeholder='Select class'
-              cleanable={false}
-              defaultValue={0} />
-          </FlexboxGrid.Item>
-
-          <FlexboxGrid.Item
-            componentClass={Col}
-            style={{ marginBottom: 15 }}
-            colspan={this.col} md={this.md}>
-            <h5 style={headingStyle}>Select section</h5>
-            <InputPicker
-              className="input-picker"
-              data={this.props.storeClassSection.sectionData}
-              style={pickerStyle}
-              labelKey="name"
-              placeholder='Select section'
-              cleanable={false}
-              defaultValue='All' />
-          </FlexboxGrid.Item>
-
-          <FlexboxGrid.Item
-            componentClass={Col}
-            style={{ marginBottom: 15 }}
-            colspan={this.col} md={this.md}>
-            <Button
-              className='filter-btn'
-              color='orange'
-              style={{marginTop:35,borderRadius:30 }}>
-                Click to Filter
-                </Button>
-                </FlexboxGrid.Item>
-        </FlexboxGrid>
+      <div style={styles}>
+        <InputPicker
+          className="input-picker"
+          data={this.props.storeMeta.classData}
+          style={pickerStyle}
+          labelKey="name"
+          placeholder='Select class'
+          cleanable={false}
+          defaultValue={-1}
+          onChange={(value) => { this._class = value }} />
+        <InputPicker
+          className="input-picker"
+          data={this.props.storeMeta.sectionData}
+          style={pickerStyle}
+          labelKey="name"
+          placeholder='Select section'
+          cleanable={false}
+          defaultValue='ALL'
+          onChange={(value) => { this.section = value }} />
+        <InputPicker
+          className="input-picker"
+          data={this.props.storeMeta.statusData}
+          style={pickerStyle}
+          labelKey="name"
+          placeholder='Select status'
+          cleanable={false}
+          defaultValue='ALL'
+          onChange={(value) => { this.status = value }} />
+        <Button
+          className='filter-btn'
+          color='blue'
+          disabled={this.props.storeStudent.listFetching}
+          onClick={() => {
+            this.props.storeStudent.fetchList({
+              class: this._class, section: this.section,
+              skip: 0, status: 'ALL'
+            });
+          }}>Apply</Button>
       </div>
     )
   }

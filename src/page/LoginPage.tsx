@@ -1,5 +1,4 @@
 import React, { Component, CSSProperties } from 'react'
-import './styles/login_page.css';
 import { Button, InputGroup, Icon, Input, Header } from 'rsuite';
 import LoginFooter from './component/LoginFooter';
 import { observer } from 'mobx-react';

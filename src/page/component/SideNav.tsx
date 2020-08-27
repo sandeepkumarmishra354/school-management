@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { Sidenav, Nav, Icon } from 'rsuite'
-import { NavOption, sidenavStore } from '../../mobx/store/store.sidenav'
+import { NavOption } from '../../mobx/store/store.sidenav'
 import { observer } from 'mobx-react';
-import { authStore } from '../../mobx/store/store.auth';
 
 interface Props {
-    navStore: typeof sidenavStore,
-    authStore: typeof authStore
+    setNav: (nav:NavOption) => void,
+    expand:boolean,
+    nav:NavOption
 }
 
 @observer
 export default class SideNav extends Component<Props, {}> {
 
-    private _navSelected = (nav: NavOption) => {
-        if(nav !== NavOption.LOGOUT)
-            this.props.navStore.setCurrentNav(nav);
-        else
-            this.props.authStore.logout();
+    constructor(props:Props) {
+        super(props);
+    }
+
+    private _navSelected = (nav:NavOption) => {
+        this.props.setNav(nav);
     }
 
     render() {
@@ -24,12 +25,12 @@ export default class SideNav extends Component<Props, {}> {
             <Sidenav
                 style={{ backgroundColor: "transparent" }}
                 appearance='inverse'
-                expanded={this.props.navStore.expanded}>
+                expanded={this.props.expand}
+                onSelect={this._navSelected}
+                activeKey={this.props.nav}>
                 <Sidenav.Body>
-                    <Nav
-                    onSelect={this._navSelected}
-                    activeKey={this.props.navStore.currentNav}>
-                        <Nav.Item eventKey='1' icon={<Icon icon="dashboard" />}>Dashboard</Nav.Item>
+                    <Nav>
+                        <Nav.Item eventKey={NavOption.DASHBOARD} icon={<Icon icon="dashboard" />}>Dashboard</Nav.Item>
                         <Nav.Item eventKey={NavOption.STATS} icon={<Icon icon="charts" />}>Stats</Nav.Item>
                         <Nav.Item eventKey={NavOption.ATTENDENCE_MANAGEMENT} icon={<Icon icon="peoples" />}>Attendence</Nav.Item>
                         <Nav.Item eventKey={NavOption.STUDENT} icon={<Icon icon="child" />}>Student</Nav.Item>
@@ -41,9 +42,6 @@ export default class SideNav extends Component<Props, {}> {
                         <Nav.Item eventKey={NavOption.SETTING} icon={<Icon icon="setting" />}>Settings</Nav.Item>
                         <Nav.Item eventKey={NavOption.HELP} icon={<Icon icon="help-o" />}>
                             <span>Help</span>
-                        </Nav.Item>
-                        <Nav.Item eventKey={NavOption.LOGOUT} icon={<Icon style={{ color: '#E44236' }} icon="exit" />}>
-                            <span style={{ color: '#E44236' }}>Logout</span>
                         </Nav.Item>
                     </Nav>
                 </Sidenav.Body>

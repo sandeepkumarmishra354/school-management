@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
-import { Divider } from 'rsuite'
 import AttendenceFilter from '../component/attendence/AttendenceFilter'
 import AttendenceTable from '../component/attendence/AttendenceTable'
-import { storeAttendenceTable } from '../../mobx/store/store.attendence.table'
-import { storeClassSection } from '../../mobx/store/store.class_sec'
+import { attendenceStore } from '../../mobx/store/store.attendence'
+import { metaDataStore } from '../../mobx/store/store.meta'
+import { Panel } from 'rsuite'
+import ListHeader from '../component/common/ListHeader'
 
 export default class AttendenceManagement extends Component {
 
+    private onRefresh = () => {
+        //
+    }
+
     render() {
         return (
-            <div style={{ width: '100%' }}>
-                <h4 style={{marginLeft:25}}>Attendence management</h4>
-                <Divider />
-                <AttendenceFilter storeClassSection={storeClassSection}/>
-                <AttendenceTable tableStore={storeAttendenceTable}/>
-            </div>
-        )
+            <Panel shaded bodyFill style={{ maxHeight: 700 }}>
+                <ListHeader
+                    heading="Attendence List"
+                    onRefresh={this.onRefresh} />
+                <AttendenceFilter attendenceStore={attendenceStore} metaStore={metaDataStore} />
+                <AttendenceTable attendenceStore={attendenceStore} />
+            </Panel>
+        );
     }
 }

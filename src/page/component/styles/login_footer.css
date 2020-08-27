@@ -1,6 +1,7 @@
 .login-footer {
   animation: moveFromBottom .5s ease-out;
   animation-fill-mode: backwards;
+  background-color: #fff;
 }
 
 .footer-love {
@@ -10,16 +11,4 @@
 
 .link {
   text-decoration: underline;
-}
-
-@keyframes moveFromBottom {
-  0% {
-    opacity: 0;
-    /*transform: translateY(100px);*/
-  }
-
-  100% {
-    opacity: 1;
-    /*transform: translateY(0);*/
-  }
 }

@@ -1,10 +1,7 @@
 import React, { ReactNode } from 'react';
-import './styles/home_page.css';
 import { Container, Sidebar, Sidenav, Icon, IconButton } from 'rsuite'
-import { homeStore } from '../mobx/store/store.home';
 import { observer } from 'mobx-react';
 import Dashboard from './sidebar/Dashboard';
-import { authStore } from '../mobx/store/store.auth';
 import SideNav from './component/SideNav';
 import { sidenavStore, NavOption } from '../mobx/store/store.sidenav';
 import FeeCollection from './sidebar/FeeCollection';
@@ -17,11 +14,11 @@ import AttendenceManagement from './sidebar/AttendenceManagement';
 import Guardin from './sidebar/Guardian';
 import ClassManagement from './sidebar/ClassManagement';
 import SaleryManagement from './sidebar/SaleryManagement';
+import { dashboardStore } from '../mobx/store/store.dashboard';
+import AppHeader from './component/common/AppHeader';
 
 interface Props {
-    homeStore: typeof homeStore,
-    navStore: typeof sidenavStore,
-    authStore: typeof authStore
+    navStore: typeof sidenavStore
 }
 
 @observer
@@ -34,7 +31,7 @@ export default class HomePage extends React.Component<Props, {}> {
     private _getContent = (nav: NavOption): ReactNode => {
         switch (nav) {
             case NavOption.DASHBOARD:
-                return <Dashboard authStore={this.props.authStore} />
+                return <Dashboard dashboard={dashboardStore} />
             case NavOption.FEE_COLLECTION:
                 return <FeeCollection />
             case NavOption.HELP:
@@ -55,11 +52,8 @@ export default class HomePage extends React.Component<Props, {}> {
                 return <ClassManagement />
             case NavOption.SALERY_MANAGEMENT:
                 return <SaleryManagement />
-            case NavOption.LOGOUT:
-                this.props.authStore.logout();
-                break;
             default:
-                return <h3>something went wrong, try again</h3>
+                return null;
         }
     }
 
@@ -72,24 +66,32 @@ export default class HomePage extends React.Component<Props, {}> {
                         style={{ display: 'flex', flexDirection: 'column' }}
                         width={this.props.navStore.sideNavCurrentWidth}
                         collapsible>
-                        <Sidenav.Header>
+                        {<Sidenav.Header>
                             <div className="brand-name">
                                 <h4
                                     className="brand-text">
                                     {this.props.navStore.schoolName}
                                 </h4>
                                 <IconButton
-                                    style={{ marginLeft: 5, position: 'absolute', right: -12, marginTop: 2, boxShadow:"5px 0 5px 0 rgba(0, 0, 0, .5)"}}
-                                circle size='xs'
-                                icon={<Icon icon='arrow-left-line' rotate={this.props.navStore.expanded ? 0 : 180}/>}
-                                onClick={this.props.navStore.toggleExpand}
+                                    style={{ marginLeft: 5, position: 'absolute', right: -12, marginTop: 2, boxShadow: "5px 0 5px 0 rgba(0, 0, 0, .5)" }}
+                                    circle size='xs'
+                                    icon={<Icon icon='arrow-left-line' rotate={this.props.navStore.expanded ? 0 : 180} />}
+                                    onClick={this.props.navStore.toggleExpand}
                                 />
                             </div>
-                        </Sidenav.Header>
-                        <SideNav navStore={this.props.navStore} authStore={this.props.authStore} />
+                        </Sidenav.Header>}
+                        <SideNav
+                            nav={sidenavStore.currentNav}
+                            expand={sidenavStore.expanded}
+                            setNav={sidenavStore.setCurrentNav} />
                     </Sidebar>
-                    <div style={{ left: this.props.navStore.sideNavCurrentWidth }} className="content-holder">
-                        {this._getContent(this.props.navStore.currentNav)}
+                    <div style={{ left: this.props.navStore.sideNavCurrentWidth }} className="content-holder-main">
+                        <AppHeader
+                            schoolName="Standard Academy"
+                            photo="https://webcomicms.net/sites/default/files/clipart/157441/image-school-157441-6977901.jpg" />
+                        <div className="content-holder">
+                            {this._getContent(this.props.navStore.currentNav)}
+                        </div>
                     </div>
                 </Container>
             </div>

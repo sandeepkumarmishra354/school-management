@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Container } from 'rsuite'
 import "./styles/dashboard.css";
-import { authStore } from '../../mobx/store/store.auth';
 import AttendenceContainer from '../component/dashboard/AttendenceContainer';
-import { attendenceStore } from '../../mobx/store/store.attendence';
 import FeeCollectionGraph from '../component/dashboard/FeeCollectionGraph';
 import { storeFeeCollection } from '../../mobx/store/store.fee.collection';
 import QuickOptions from '../component/dashboard/QuickOptions';
+import { dashboardStore } from '../../mobx/store/store.dashboard';
 
 interface Props {
-  authStore: typeof authStore
+  dashboard: typeof dashboardStore
 }
 
 export default class Dashboard extends Component<Props, {}> {
@@ -18,12 +17,18 @@ export default class Dashboard extends Component<Props, {}> {
     super(props);
   }
 
+  componentDidMount = () => {
+    dashboardStore.fetchAttendence();
+    dashboardStore.fetchFee();
+  }
+
   render() {
     return (
       <Container style={{ width: '100%' }} className="dashboard-container">
         <QuickOptions />
-        <AttendenceContainer attendenceStore={attendenceStore} />
-        <FeeCollectionGraph feeStore={storeFeeCollection} />
+        <AttendenceContainer
+          dashboardStore={dashboardStore} />
+        <FeeCollectionGraph dashboardStore={dashboardStore} />
       </Container>
     )
   }

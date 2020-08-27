@@ -4,17 +4,16 @@ export enum NavOption {
     DASHBOARD, STUDENT, TEACHER,
     GUARDIAN, STATS, FEE_COLLECTION,
     ATTENDENCE_MANAGEMENT, SETTING,
-    LOGOUT, HELP, CLASS_MANAGEMENT,
-    SALERY_MANAGEMENT
+    HELP, CLASS_MANAGEMENT,SALERY_MANAGEMENT
 };
 
 class SidenavStore {
     @observable expanded: boolean = true;
-    @observable currentNav: NavOption = NavOption.STUDENT;
+    @observable currentNav: NavOption = NavOption.DASHBOARD;
 
     private readonly expandedWidth = 220;
     private readonly collapsedWidth = 56;
-    private readonly collageName = 'Standard Academy';
+    private readonly collageName = 'Web Solutions';
 
     @computed
     public get sideNavCurrentWidth(): number {

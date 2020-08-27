@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-//import 'less';
 import 'rsuite/lib/styles/themes/default/index.less';
 import { authStore } from './mobx/store/store.auth';
 import {utilsStore} from './mobx/store/store.util';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App authStore={authStore} utilStore={utilsStore} />
+    <App authStore={authStore} />
   </React.StrictMode>,
   document.getElementById('root')
 );
