@@ -64,7 +64,7 @@ export default class StudentList extends Component<Props, {}> {
         loading={this.props.store.listFetching}
         bordered cellBordered>
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>ID</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Student id</Table.HeaderCell>
           <Table.Cell className="table-cell" dataKey='studentId'>
             {(rowData: StudentListType) => (
               <div style={{ ...flexCellStyle }}>
@@ -76,27 +76,27 @@ export default class StudentList extends Component<Props, {}> {
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>NAME</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Name</Table.HeaderCell>
           <Table.Cell style={cellStyle} className="table-cell" dataKey='name' />
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>CLASS</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Class</Table.HeaderCell>
           <Table.Cell style={cellStyle} className="table-cell" dataKey='class' />
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>SECTION</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Section</Table.HeaderCell>
           <Table.Cell style={cellStyle} className="table-cell" dataKey='section' />
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>BIRTHDAY</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Birthday</Table.HeaderCell>
           <Table.Cell style={cellStyle} className="table-cell" dataKey='birthDate' />
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>STATUS</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Status</Table.HeaderCell>
           <Table.Cell style={cellStyle} className="table-cell" dataKey='status'>
             {(rowData: StudentListType) => (
               <div style={{ ...flexCellStyle }}>
@@ -107,7 +107,7 @@ export default class StudentList extends Component<Props, {}> {
         </Table.Column>
 
         <Table.Column flexGrow={1} align='center'>
-          <Table.HeaderCell style={headerCellStyle}>ACTION</Table.HeaderCell>
+          <Table.HeaderCell style={headerCellStyle}>Action</Table.HeaderCell>
           <Table.Cell className="table-cell">
             {(rowData: any) => (
               <div style={flexCellStyle}>

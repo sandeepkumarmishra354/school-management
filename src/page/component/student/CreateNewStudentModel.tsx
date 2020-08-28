@@ -11,6 +11,7 @@ import { StudentCreateModel } from '../../../model/model.student';
 interface Props {
   show: boolean,
   formModel: Schema,
+  isCreating: boolean,
   onClose: () => void,
   onSubmit: (formData: StudentCreateModel) => void,
   onCancel: () => void,
@@ -68,10 +69,17 @@ export default class CreateNewStudentModel extends Component<Props, {}> {
         </Modal.Body>
         <Modal.Footer>
           <Divider />
-          <Button onClick={this.onSubmit} appearance="primary">
+          <Button
+            onClick={this.onSubmit}
+            appearance="primary"
+            loading={this.props.isCreating}>
             Submit Record
             </Button>
-          <Button onClick={this.props.onCancel} appearance="subtle">
+          <Button
+            onClick={this.props.onCancel}
+            appearance="ghost"
+            color='red'
+            disabled={this.props.isCreating}>
             Cancel
             </Button>
         </Modal.Footer>

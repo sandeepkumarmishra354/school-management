@@ -63,7 +63,7 @@ export default class StudentFilter extends Component<Props, {}> {
           onClick={() => {
             this.props.storeStudent.fetchList({
               class: this._class, section: this.section,
-              skip: 0, status: 'ALL'
+              skip: 0, status: this.status
             });
           }}>Apply</Button>
       </div>

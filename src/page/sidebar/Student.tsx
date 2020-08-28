@@ -8,30 +8,33 @@ import ListHeader from '../component/common/ListHeader';
 import CreateNewStudentModel from '../component/student/CreateNewStudentModel';
 import { StudentFormModel } from '../component/form-model/create.student';
 import { StudentCreateModel } from '../../model/model.student';
+import { observer } from 'mobx-react';
 
-export default class Student extends Component<{},{showModal:boolean}> {
+interface Props {
+    store: typeof storeStudent
+}
+
+@observer
+export default class Student extends Component<Props,{}> {
 
     constructor(props:any) {
         super(props);
-        this.state = {
-            showModal:false
-        };
     }
 
     private onRefresh = () => {
         //
     }
     private onCreate = () => {
-        this.setState({ showModal: true });
+        this.props.store.showCreateModal(true);
     }
     private closeModal = () => {
-        this.setState({showModal:false});
+        this.props.store.showCreateModal(false);
     }
     private onSubmitModal = (formData:StudentCreateModel) => {
-        this.closeModal();
+        this.props.store.createNewRecord(formData);
     }
     private onCancelModal = () => {
-        this.closeModal();
+        this.props.store.showCreateModal(false);
     }
 
     render() {
@@ -44,8 +47,9 @@ export default class Student extends Component<{},{showModal:boolean}> {
                 <StudentFilter storeStudent={storeStudent} storeMeta={metaDataStore} />
                 <StudentList store={storeStudent} />
                 <CreateNewStudentModel
+                isCreating={this.props.store.isCreating}
                 formModel={StudentFormModel.createStudent}
-                show={this.state.showModal}
+                show={this.props.store.isCreateModalVisible}
                 onClose={this.closeModal}
                 onCancel={this.onCancelModal}
                 onSubmit={this.onSubmitModal}/>

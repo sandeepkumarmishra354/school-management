@@ -18,7 +18,7 @@ export const ContactInfoModel = {
     country: Schema.Types.StringType().isRequired("country is required"),
     zipCode: Schema.Types.StringType().isRequired("zip code is required"),
     area: Schema.Types.StringType().isRequired("area is required"),
-    landmark: Schema.Types.StringType().isRequiredOrEmpty(),
+    landmark: Schema.Types.StringType().isRequired("landmark is required"),
 }
 
 export const OfficialInfoModel = {

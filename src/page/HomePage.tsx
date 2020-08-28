@@ -16,6 +16,8 @@ import ClassManagement from './sidebar/ClassManagement';
 import SaleryManagement from './sidebar/SaleryManagement';
 import { dashboardStore } from '../mobx/store/store.dashboard';
 import AppHeader from './component/common/AppHeader';
+import { storeStudent } from '../mobx/store/student/store.student';
+import { storeTeacher } from '../mobx/store/teacher/store.teacher';
 
 interface Props {
     navStore: typeof sidenavStore
@@ -41,9 +43,9 @@ export default class HomePage extends React.Component<Props, {}> {
             case NavOption.STATS:
                 return <Stats />
             case NavOption.STUDENT:
-                return <Student />
+                return <Student store={storeStudent} />
             case NavOption.TEACHER:
-                return <Teacher />
+                return <Teacher store={storeTeacher}/>
             case NavOption.ATTENDENCE_MANAGEMENT:
                 return <AttendenceManagement />
             case NavOption.GUARDIAN:

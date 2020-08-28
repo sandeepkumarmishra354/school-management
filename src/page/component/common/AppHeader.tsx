@@ -43,7 +43,10 @@ export default class AppHeader extends PureComponent<Props,{}> {
                 </InputGroup>
 
                 <Dropdown
-                trigger='hover'
+                className="app-header-dropdown"
+                style={{marginLeft:25}}
+                trigger='click'
+                    title={<span style={{ color: '#333945', marginLeft: 5, marginRight: 5}}>Sandeep Mishra</span>}
                 onSelect={this.onDropdownSelect}
                     icon={<Icon icon="user-circle" style={{ color:'#0A79DF'}} />}>
                     <Dropdown.Item eventKey={2} icon={<Icon icon="building" />}>

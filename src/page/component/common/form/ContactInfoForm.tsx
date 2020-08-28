@@ -21,7 +21,7 @@ export default class ContactInfoForm extends Component<{ style?: CSSProperties }
                     <FormTextField name='country' value="INDIA" label="Country*" placeholder="enter country" />
                     <FormTextField name='zipCode' value="230001" label="Zip code*" placeholder="enter zip code" />
                     <FormTextField name='area' label="Area*" placeholder="enter locality" />
-                    <FormTextField name='landmark' label="Landmark (optional)" placeholder="enter landmark" />
+                    <FormTextField name='landmark' label="Landmark*" placeholder="enter landmark" />
                 </div>
             </Panel>
         )

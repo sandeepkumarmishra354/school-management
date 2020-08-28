@@ -2,13 +2,13 @@ import React, { Component, CSSProperties } from 'react';
 import { Table, IconButton, Icon, Whisper, Tooltip, Avatar } from 'rsuite';
 import { notificationHelper } from '../../../utils/NotificationHelper';
 import { observer } from 'mobx-react';
-import { storeTeacher, TeacherListType } from '../../../mobx/store/teacher/store.teacher';
+import { storeFee, FeeListType } from '../../../mobx/store/fee/store.fee';
 
 const getStatusColor = (status: string) => {
     switch (status) {
-        case 'ACTIVE':
+        case 'PAID':
             return '#45CE30';
-        case 'INACTIVE':
+        case 'PARTIAL':
             return '#F3B431';
         default:
             return '#E71C23';
@@ -31,11 +31,11 @@ const cellStyle: CSSProperties = {
 }
 
 interface Props {
-    store: typeof storeTeacher
+    store: typeof storeFee
 }
 
 @observer
-export default class TeacherList extends Component<Props, {}> {
+export default class FeeList extends Component<Props, {}> {
 
     private _infoClicked = () => {
         notificationHelper.showInfo('Info button clicked');
@@ -56,26 +56,15 @@ export default class TeacherList extends Component<Props, {}> {
     render() {
         return (
             <Table
-                data={this.props.store.teacherList}
+                data={this.props.store.feeList}
                 height={700}
                 hover={true}
                 loading={this.props.store.listFetching}
                 bordered cellBordered>
-                <Table.Column flexGrow={1} align='center'>
-                    <Table.HeaderCell style={headerCellStyle}>Teacher id</Table.HeaderCell>
-                    <Table.Cell className="table-cell" dataKey='teacherId'>
-                        {(rowData: TeacherListType) => (
-                            <div style={{ ...flexCellStyle }}>
-                                <Avatar style={{ marginRight: 10 }} src={rowData.avatar} alt='photo' circle size='sm' />
-                                <h6 style={{ fontWeight: 'bold', color: 'red' }}>{rowData.teacherId}</h6>
-                            </div>
-                        )}
-                    </Table.Cell>
-                </Table.Column>
 
                 <Table.Column flexGrow={1} align='center'>
                     <Table.HeaderCell style={headerCellStyle}>Name</Table.HeaderCell>
-                    <Table.Cell style={cellStyle} className="table-cell" dataKey='name' />
+                    <Table.Cell style={cellStyle} className="table-cell" dataKey='fullName' />
                 </Table.Column>
 
                 <Table.Column flexGrow={1} align='center'>
@@ -89,14 +78,26 @@ export default class TeacherList extends Component<Props, {}> {
                 </Table.Column>
 
                 <Table.Column flexGrow={1} align='center'>
-                    <Table.HeaderCell style={headerCellStyle}>Joining Date</Table.HeaderCell>
-                    <Table.Cell style={cellStyle} className="table-cell" dataKey='joiningDate' />
+                    <Table.HeaderCell style={headerCellStyle}>Month</Table.HeaderCell>
+                    <Table.Cell style={cellStyle} className="table-cell" dataKey='month' />
+                </Table.Column>
+                <Table.Column flexGrow={1} align='center'>
+                    <Table.HeaderCell style={headerCellStyle}>Message</Table.HeaderCell>
+                    <Table.Cell style={cellStyle} className="table-cell" dataKey='message' />
+                </Table.Column>
+                <Table.Column flexGrow={1} align='center'>
+                    <Table.HeaderCell style={headerCellStyle}>Due Amount</Table.HeaderCell>
+                    <Table.Cell style={cellStyle} className="table-cell" dataKey='dueAmount' />
+                </Table.Column>
+                <Table.Column flexGrow={1} align='center'>
+                    <Table.HeaderCell style={headerCellStyle}>Paid Amount</Table.HeaderCell>
+                    <Table.Cell style={cellStyle} className="table-cell" dataKey='paidAmount' />
                 </Table.Column>
 
                 <Table.Column flexGrow={1} align='center'>
                     <Table.HeaderCell style={headerCellStyle}>Status</Table.HeaderCell>
                     <Table.Cell style={cellStyle} className="table-cell" dataKey='status'>
-                        {(rowData: TeacherListType) => (
+                        {(rowData: FeeListType) => (
                             <div style={{ ...flexCellStyle }}>
                                 <h6 style={{ fontWeight: 'bold', color: getStatusColor(rowData.status) }}>{rowData.status}</h6>
                             </div>
@@ -104,8 +105,8 @@ export default class TeacherList extends Component<Props, {}> {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column flexGrow={1} align='center'>
-                    <Table.HeaderCell style={headerCellStyle}>Action</Table.HeaderCell>
+                {/*<Table.Column flexGrow={1} align='center'>
+                    <Table.HeaderCell style={headerCellStyle}>ACTION</Table.HeaderCell>
                     <Table.Cell className="table-cell">
                         {(rowData: TeacherListType) => (
                             <div style={flexCellStyle}>
@@ -121,7 +122,7 @@ export default class TeacherList extends Component<Props, {}> {
                             </div>
                         )}
                     </Table.Cell>
-                </Table.Column>
+                </Table.Column>*/}
             </Table>
         )
     }

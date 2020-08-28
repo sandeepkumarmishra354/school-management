@@ -1,13 +1,13 @@
 import React, { Component, CSSProperties } from 'react'
 import { Panel, FormGroup, ControlLabel, FormControl, InputPicker } from 'rsuite'
 import { FormHeader } from './common'
-import { metaDataStore } from '../../../../mobx/store/store.meta'
 
 interface Props {
     style?: CSSProperties,
     status: Array<{ name: string, value: string }>,
     section: Array<{ name: string, value: string }>,
     class: Array<{ name: string, value: number }>,
+    maritalStatus?: Array<{ name: string, value: string }>
 }
 
 export default class OfficialInfoForm extends Component<Props, {}> {
@@ -53,14 +53,25 @@ export default class OfficialInfoForm extends Component<Props, {}> {
                             defaultValue="ACTIVE"
                             data={this.props.status} />
                     </FormGroup>
-                    <FormGroup style={{ flex: 1 }}>
-                        <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>Roll Number*</ControlLabel>
+                    {this.props.maritalStatus ? <FormGroup style={{ flex: 1 }}>
+                        <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>Marital Status*</ControlLabel>
                         <FormControl
                             className="form-input"
                             style={{ width: '90%' }}
-                            name="rollNo"
-                            placeholder="enter roll number"/>
-                    </FormGroup>
+                            name="maritalStatus"
+                            labelKey="name"
+                            accepter={InputPicker}
+                            cleanable={false}
+                            defaultValue="MARRIED"
+                            data={this.props.maritalStatus} />
+                    </FormGroup> : <FormGroup style={{ flex: 1 }}>
+                            <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>Roll Number*</ControlLabel>
+                            <FormControl
+                                className="form-input"
+                                style={{ width: '90%' }}
+                                name="rollNo"
+                                placeholder="enter roll number" />
+                        </FormGroup>}
                 </div>
             </div>
       </Panel>
