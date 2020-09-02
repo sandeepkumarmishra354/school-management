@@ -37,6 +37,7 @@ export default class ListHeader extends Component<Props, {}> {
         <div style={actionDivStyle}>
 
           <Whisper
+          style={{marginRight:8}}
             placement='top' trigger='hover'
             speaker={<Tooltip>refresh</Tooltip>}>
             <IconButton style={{ backgroundColor: 'transparent' }} icon={<Icon icon='refresh' style={{ color: '#fff' }} />} onClick={this.props.onRefresh} />
@@ -47,6 +48,7 @@ export default class ListHeader extends Component<Props, {}> {
             speaker={<Tooltip>create new</Tooltip>}>
             <IconButton style={{ backgroundColor: 'transparent' }} icon={<Icon icon='plus' style={{ color: '#fff' }} />} onClick={this.props.onCreate} />
           </Whisper>}
+          {this.props.children}
         </div>
       </div>
     )

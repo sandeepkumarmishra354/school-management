@@ -2,7 +2,7 @@ import React, { Component, CSSProperties } from 'react'
 import { Button, InputGroup, Icon, Input, Header } from 'rsuite';
 import LoginFooter from './component/LoginFooter';
 import { observer } from 'mobx-react';
-import { authStore } from '../mobx/store/store.auth';
+import { authStore } from '../mobx/store/auth/store.auth';
 
 const styles:CSSProperties = {
     width: "80%",
@@ -45,9 +45,12 @@ export default class LoginPage extends Component<Props, {}> {
     render() {
         return (
             <div className="login-div">
+                <h5 style={{ color:'#192A56',padding:40,fontSize:25}}>
+                    WEB <span>SOLUTIONS</span>
+                </h5>
                 <div className="input-container">
                     <Header style={{ fontSize: 25, position: 'absolute', display: 'flex', top: 0, color: '#FFF', backgroundColor: "orange", width: '100%', padding: 8, justifyContent: 'center' }}>
-                        <h4>{this.props.store.schoolName}</h4>
+                        <h6>Sign in to start your session</h6>
                     </Header>
                     <InputGroup className="input-grp" style={{ ...styles, marginTop: 30 }}>
                         <InputGroup.Addon>
@@ -74,7 +77,7 @@ export default class LoginPage extends Component<Props, {}> {
                         loading={this.props.store.isLogingIn}
                         onClick={this._loginClicked}>SIGN IN</Button>
 
-                    <Button style={{ color: '#fff', backgroundColor: '#FF362E',padding:5,borderRadius:12,position:'absolute',bottom:10 }}>Forgot password ?</Button>
+                    <Button appearance='link' color='red' style={{ padding:5,borderRadius:12,position:'absolute',bottom:10 }}>Forgot password ?</Button>
                 </div>
                 <LoginFooter />
             </div>

@@ -11,6 +11,7 @@ interface Props {
     label: string,
     tooltip?: string,
     style?:CSSProperties,
+    type?:string
 }
 
 export class FormTextField extends React.PureComponent<Props, {}> {
@@ -19,7 +20,15 @@ export class FormTextField extends React.PureComponent<Props, {}> {
         return (
             <FormGroup style={this.props.style}>
                 <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>{this.props.label}</ControlLabel>
-                <FormControl className="form-input" defaultValue={this.props.value} style={{ width: this.props.style?.width }} placeholder={this.props.placeholder} name={this.props.name} accepter={this.props.accepter} {...this.props.rest} />
+                <FormControl
+                className="form-input"
+                defaultValue={this.props.value}
+                style={{ width: this.props.style?.width }}
+                placeholder={this.props.placeholder}
+                name={this.props.name}
+                type={this.props.type}
+                accepter={this.props.accepter}
+                {...this.props.rest} />
                 {this.props.tooltip &&
                     <HelpBlock>{this.props.tooltip}</HelpBlock>}
             </FormGroup>

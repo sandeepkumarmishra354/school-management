@@ -5,15 +5,12 @@ export const formatCreateData = (data: TeacherCreateModel) => {
         ...data,
         address: {
             city: data.city,
-            country: data.country,
             state: data.state,
-            area: data.area,
-            zipCode: data.zipCode,
-            landmark: data.landmark,
+            address: data.address,
         },
         contact: {
-            email: data.email.split(','),
-            phone: data.phone.split(','),
+            email: data.email,
+            phone: data.phone,
         },
         joiningDate: data.admissionDate
     };

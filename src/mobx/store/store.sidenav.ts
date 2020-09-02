@@ -1,13 +1,13 @@
 import { observable, computed, action } from "mobx";
+import { StoreBase } from "./store.base";
 
 export enum NavOption {
-    DASHBOARD, STUDENT, TEACHER,
-    GUARDIAN, STATS, FEE_COLLECTION,
+    DASHBOARD, STUDENT, TEACHER, STATS, FEE_COLLECTION,
     ATTENDENCE_MANAGEMENT, SETTING,
-    HELP, CLASS_MANAGEMENT,SALERY_MANAGEMENT
+    HELP,SALERY_MANAGEMENT
 };
 
-class SidenavStore {
+class SidenavStore extends StoreBase {
     @observable expanded: boolean = true;
     @observable currentNav: NavOption = NavOption.DASHBOARD;
 
@@ -34,6 +34,10 @@ class SidenavStore {
     public setCurrentNav = (nav: NavOption) => {
         if (nav !== this.currentNav)
             this.currentNav = nav;
+    }
+
+    public doFullCleanup = async () => {
+        //
     }
 }
 

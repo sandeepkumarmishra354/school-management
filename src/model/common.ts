@@ -13,10 +13,7 @@ export interface ContactInfoModel {
     phone: string,
     city: string,
     state: string,
-    country: string,
-    zipCode: string,
-    area: string,
-    landmark: string,
+    address: string,
 }
 
 export interface OfficialInfoModel {

@@ -7,9 +7,9 @@ import { storeTeacher, TeacherListType } from '../../../mobx/store/teacher/store
 const getStatusColor = (status: string) => {
     switch (status) {
         case 'ACTIVE':
-            return '#45CE30';
+            return '#019031';
         case 'INACTIVE':
-            return '#F3B431';
+            return '#E1DA00';
         default:
             return '#E71C23';
     }
@@ -27,7 +27,7 @@ const flexCellStyle: CSSProperties = {
 }
 const cellStyle: CSSProperties = {
     color: '#000',
-    fontWeight: 'bold'
+    cursor: 'pointer'
 }
 
 interface Props {
@@ -62,12 +62,12 @@ export default class TeacherList extends Component<Props, {}> {
                 loading={this.props.store.listFetching}
                 bordered cellBordered>
                 <Table.Column flexGrow={1} align='center'>
-                    <Table.HeaderCell style={headerCellStyle}>Teacher id</Table.HeaderCell>
+                    <Table.HeaderCell style={headerCellStyle}>Id</Table.HeaderCell>
                     <Table.Cell className="table-cell" dataKey='teacherId'>
                         {(rowData: TeacherListType) => (
                             <div style={{ ...flexCellStyle }}>
                                 <Avatar style={{ marginRight: 10 }} src={rowData.avatar} alt='photo' circle size='sm' />
-                                <h6 style={{ fontWeight: 'bold', color: 'red' }}>{rowData.teacherId}</h6>
+                                <h6 style={{ fontWeight:400, color: 'red' }}>{rowData.teacherId}</h6>
                             </div>
                         )}
                     </Table.Cell>
@@ -98,7 +98,7 @@ export default class TeacherList extends Component<Props, {}> {
                     <Table.Cell style={cellStyle} className="table-cell" dataKey='status'>
                         {(rowData: TeacherListType) => (
                             <div style={{ ...flexCellStyle }}>
-                                <h6 style={{ fontWeight: 'bold', color: getStatusColor(rowData.status) }}>{rowData.status}</h6>
+                                <h6 style={{ fontWeight:400, color: getStatusColor(rowData.status) }}>{rowData.status}</h6>
                             </div>
                         )}
                     </Table.Cell>

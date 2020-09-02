@@ -2,7 +2,8 @@ import React from 'react';
 import { FlexboxGrid, Col, Loader } from 'rsuite';
 import AttendenceCard from './AttendenceCard';
 import { observer } from 'mobx-react';
-import { dashboardStore } from '../../../mobx/store/store.dashboard';
+import { dashboardStore } from '../../../mobx/store/dashboard/store.dashboard';
+import DashboardOptionTitle from './DashboardOptiontitle';
 
 interface Props {
     dashboardStore: typeof dashboardStore
@@ -19,7 +20,10 @@ export default class AttendenceContainer extends React.Component<Props, {}> {
         let data = this.props.dashboardStore.attendence;
         return (
             <div style={{ width: '100%', transition: 'all 1s', marginBottom: 45 }}>
-                <h4 style={{ marginBottom: 25 }}>Attendence <span style={{fontSize:15}}>(today)</span></h4>
+                <DashboardOptionTitle
+                    style={{ marginBottom: 25 }}
+                    title="Attendence"
+                    postFix="(today)" />
                 {data ? <FlexboxGrid justify='space-around'>
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={6}>
                         <AttendenceCard title="Student" presentPercent={data.student.prePer} absentPercent={data.student.absPer} total={data.student.total} present={data.student.present} absent={data.student.absent} />

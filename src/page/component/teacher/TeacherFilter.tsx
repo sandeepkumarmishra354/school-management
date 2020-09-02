@@ -9,7 +9,7 @@ interface Props {
 }
 
 const pickerStyle: CSSProperties = {
-    minWidth: 250,
+    maxWidth: 200,
     borderRadius: 0,
     marginRight: 15
 }
@@ -46,7 +46,7 @@ export default class TeacherFilter extends Component<Props, {}> {
                         this.props.storeTeacher.fetchList({
                             class: this._class, section: this.section,
                             skip: 0, status: this.status
-                        });
+                        },true);
                     }}>Apply</Button>
             </div>
         )

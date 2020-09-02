@@ -11,10 +11,8 @@ import Stats from './sidebar/Stats';
 import Student from './sidebar/Student';
 import Teacher from './sidebar/Teacher';
 import AttendenceManagement from './sidebar/AttendenceManagement';
-import Guardin from './sidebar/Guardian';
-import ClassManagement from './sidebar/ClassManagement';
 import SaleryManagement from './sidebar/SaleryManagement';
-import { dashboardStore } from '../mobx/store/store.dashboard';
+import { dashboardStore } from '../mobx/store/dashboard/store.dashboard';
 import AppHeader from './component/common/AppHeader';
 import { storeStudent } from '../mobx/store/student/store.student';
 import { storeTeacher } from '../mobx/store/teacher/store.teacher';
@@ -48,10 +46,6 @@ export default class HomePage extends React.Component<Props, {}> {
                 return <Teacher store={storeTeacher}/>
             case NavOption.ATTENDENCE_MANAGEMENT:
                 return <AttendenceManagement />
-            case NavOption.GUARDIAN:
-                return <Guardin />
-            case NavOption.CLASS_MANAGEMENT:
-                return <ClassManagement />
             case NavOption.SALERY_MANAGEMENT:
                 return <SaleryManagement />
             default:
@@ -87,8 +81,9 @@ export default class HomePage extends React.Component<Props, {}> {
                             expand={sidenavStore.expanded}
                             setNav={sidenavStore.setCurrentNav} />
                     </Sidebar>
-                    <div style={{ left: this.props.navStore.sideNavCurrentWidth }} className="content-holder-main">
+                    <div style={{ left: this.props.navStore.sideNavCurrentWidth, backgroundColor:'#f8f8ff' }} className="content-holder-main">
                         <AppHeader
+                            style={{right: 0, left: this.props.navStore.sideNavCurrentWidth}}
                             schoolName="Standard Academy"
                             photo="https://webcomicms.net/sites/default/files/clipart/157441/image-school-157441-6977901.jpg" />
                         <div className="content-holder">

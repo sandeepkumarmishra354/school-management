@@ -10,7 +10,7 @@ const createWindow = () => {
     center: true,
     minWidth: 1200,
     minHeight: 700,
-    autoHideMenuBar: true,
+    //autoHideMenuBar: true,
     darkTheme: true,
     webPreferences: {
       nodeIntegration: true,

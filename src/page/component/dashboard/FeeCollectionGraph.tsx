@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis } from 'recharts';
 import { observer } from 'mobx-react';
 import { Loader } from 'rsuite';
-import { dashboardStore } from '../../../mobx/store/store.dashboard';
+import { dashboardStore } from '../../../mobx/store/dashboard/store.dashboard';
+import DashboardOptionTitle from './DashboardOptiontitle';
 
 interface Props {
     dashboardStore: typeof dashboardStore
@@ -15,17 +16,36 @@ export default class FeeCollectionGraph extends PureComponent<Props, {}> {
         super(props);
     }
 
+    private renderCustomBarLabel = (data: any) => {
+        let { x, y, width, value } = data;
+        return (
+            <text
+            x={x + width / 2}
+                y={y} fill="#8B78E6"
+            textAnchor="middle"
+            dy={-6}>
+                ₹ {value}
+            </text>
+        );
+    };
+
     render() {
         let data = this.props.dashboardStore.feeData;
         return (
             <div style={{ width: '100%', marginBottom: 15, }}>
-                <h4 style={{ marginBottom: 25 }}>Fee collection</h4>
-                {data ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <BarChart width={850} height={350} data={data}>
-                        <Bar dataKey='collection' barSize={30} fill="#BB2CD9" />
+                <DashboardOptionTitle
+                    style={{ marginBottom: 25 }}
+                    title="Fee Collection" />
+                {data ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <BarChart
+                        compact width={820}
+                        height={400} data={data}>
                         <XAxis dataKey="date" />
                         <YAxis />
-                        <Tooltip />
+                        <Bar
+                            dataKey='collection'
+                            barSize={25} fill="#BB2CD9"
+                            label={this.renderCustomBarLabel} />
                     </BarChart>
                 </div> : <Loader content="Please wait..." />}
             </div>

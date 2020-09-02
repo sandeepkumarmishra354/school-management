@@ -2,13 +2,14 @@ type arrType = { name: string, value: string };
 
 class MetaDataStore {
 
-    private user = ['TEACHER', 'STUDENT'];
+    private user = ['ALL','TEACHER', 'STUDENT'];
     private status = ['ALL', 'ACTIVE', 'INACTIVE', 'DISCONTINUED'];
     private gender = ['MALE', 'FEMALE', 'OTHER'];
     private category = ['GENERAL', 'OBC', 'SC_ST', 'MINORITY', 'OTHER'];
     private religion = ['HINDU', 'MUSLIM', 'SIKH', 'CHRISTIAN', 'OTHER'];
     private maritalStatus = ['MARRIED', 'UNMARRIED', 'OTHER'];
     private feeStatus = ['ALL','PAID', 'DUE', 'PARTIAL'];
+    private attendenceStatus = ['ALL','PRESENT', 'ABSENT'];
 
     public classData: Array<{ name: string, value: number }> = [{ name: 'ALL', value: -1 }];
     public sectionData: Array<arrType> = [{ name: 'ALL', value: 'ALL' }];
@@ -19,6 +20,7 @@ class MetaDataStore {
     public religionData: Array<arrType> = [];
     public mariedStatusData: Array<arrType> = [];
     public feeStatusData: Array<arrType> = [];
+    public attendenceStatusData: Array<arrType> = [];
 
     constructor() {
         for (let i = 1; i <= 12; i++)
@@ -36,6 +38,7 @@ class MetaDataStore {
         this.religionData = this.religion.map((r) => ({ name: r, value: r }));
         this.mariedStatusData = this.maritalStatus.map((ms) => ({ name: ms, value: ms }));
         this.feeStatusData = this.feeStatus.map((f) => ({name:f,value:f}));
+        this.attendenceStatusData = this.attendenceStatus.map((a) => ({name:a,value:a}));
     }
 }
 

@@ -3,6 +3,7 @@ import { notificationHelper } from "../../../utils/NotificationHelper";
 import { StudentApi, ApiResponse } from "../../../axios/api";
 import { StudentCreateModel } from "../../../model/model.student";
 import { formatCreateData } from "./helper";
+import { StoreBase } from "../store.base";
 
 export type StudentListType = {
     uid: string,
@@ -13,9 +14,11 @@ export type StudentListType = {
     avatar: string,
     status:string,
     birthDate:string,
+    rollNo:string,
+    address:string,
 }
 
-class StoreStudent {
+class StoreStudent extends StoreBase {
     @observable studentList: Array<StudentListType> = [];
     @observable listFetching = false;
     @observable isCreating = false;
@@ -62,6 +65,10 @@ class StoreStudent {
             notificationHelper.showError(err.message);
             this.isCreating = false;
         }
+    }
+
+    public doFullCleanup = async () => {
+        //
     }
 }
 

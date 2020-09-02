@@ -35,8 +35,6 @@ export default class SideNav extends Component<Props, {}> {
                         <Nav.Item eventKey={NavOption.ATTENDENCE_MANAGEMENT} icon={<Icon icon="peoples" />}>Attendence</Nav.Item>
                         <Nav.Item eventKey={NavOption.STUDENT} icon={<Icon icon="child" />}>Student</Nav.Item>
                         <Nav.Item eventKey={NavOption.TEACHER} icon={<Icon icon="user" />}>Teacher</Nav.Item>
-                        <Nav.Item eventKey={NavOption.GUARDIAN} icon={<Icon icon="shield" />}>Guardian</Nav.Item>
-                        <Nav.Item eventKey={NavOption.CLASS_MANAGEMENT} icon={<Icon icon="hourglass" />}>Class Management</Nav.Item>
                         <Nav.Item eventKey={NavOption.FEE_COLLECTION} icon={<Icon icon="money" />}>Fee Management</Nav.Item>
                         <Nav.Item eventKey={NavOption.SALERY_MANAGEMENT} icon={<Icon icon="coincide" />}>Salery Management</Nav.Item>
                         <Nav.Item eventKey={NavOption.SETTING} icon={<Icon icon="setting" />}>Settings</Nav.Item>

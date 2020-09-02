@@ -1,6 +1,6 @@
 import React, { PureComponent, CSSProperties } from 'react';
-import { FlexboxGrid, Button, Col, Panel, Icon, IconButton, Divider } from 'rsuite';
-import { sidenavStore, NavOption } from '../../../mobx/store/store.sidenav';
+import { FlexboxGrid, Button, Col, Panel, Icon } from 'rsuite';
+import DashboardOptionTitle from './DashboardOptiontitle';
 
 const Heading = (heading: string, icon: JSX.Element) => {
     return <h5 style={{ fontWeight: 400, color: '#EAF0F1' }}>
@@ -33,7 +33,9 @@ export default class QuickOptions extends PureComponent {
     render() {
         return (
             <div style={{ width: '100%', transition: 'all 1s', marginBottom: 45 }}>
-                <h4 style={{ marginBottom: 45 }}>Quick options</h4>
+                <DashboardOptionTitle
+                style={{marginBottom:25}}
+                title='Quick Options'/>
                 <FlexboxGrid justify='space-around'>
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={7}>
                         <Panel shaded header={Heading("Send Notification", <Icon icon="bell" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#E74292' }}>
@@ -44,7 +46,7 @@ export default class QuickOptions extends PureComponent {
 
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={7}>
                         <Panel shaded header={Heading("Fee Reminder", <Icon icon="send" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#1287A5' }}>
-                            {Description("Send a custom email or sms to student's guardian regarding their due fee.")}
+                            {Description("Send a custom email or sms to guardian regarding their due fee.")}
                             {QuickButton("Remind")}
                         </Panel>
                     </FlexboxGrid.Item>

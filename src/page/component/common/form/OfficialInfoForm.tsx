@@ -7,13 +7,13 @@ interface Props {
     status: Array<{ name: string, value: string }>,
     section: Array<{ name: string, value: string }>,
     class: Array<{ name: string, value: number }>,
-    maritalStatus?: Array<{ name: string, value: string }>
+    maritalStatus?: Array<{ name: string, value: string }>,
 }
 
 export default class OfficialInfoForm extends Component<Props, {}> {
   render() {
     return (
-        <Panel style={{ ...this.props.style }} bodyFill shaded>
+        <Panel style={{ ...this.props.style }} bodyFill bordered>
             <FormHeader icon='building2' heading="Official Information" />
             <div style={{ padding: 25 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>

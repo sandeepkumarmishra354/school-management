@@ -9,7 +9,7 @@ interface Props {
 }
 
 const pickerStyle: CSSProperties = {
-  minWidth: 250,
+  maxWidth: 200,
   borderRadius: 0,
   marginRight: 15
 }
@@ -36,7 +36,6 @@ export default class StudentFilter extends Component<Props, {}> {
           labelKey="name"
           placeholder='Select class'
           cleanable={false}
-          defaultValue={-1}
           onChange={(value) => { this._class = value }} />
         <InputPicker
           className="input-picker"
@@ -45,7 +44,6 @@ export default class StudentFilter extends Component<Props, {}> {
           labelKey="name"
           placeholder='Select section'
           cleanable={false}
-          defaultValue='ALL'
           onChange={(value) => { this.section = value }} />
         <InputPicker
           className="input-picker"
@@ -54,7 +52,6 @@ export default class StudentFilter extends Component<Props, {}> {
           labelKey="name"
           placeholder='Select status'
           cleanable={false}
-          defaultValue='ALL'
           onChange={(value) => { this.status = value }} />
         <Button
           className='filter-btn'
@@ -64,8 +61,8 @@ export default class StudentFilter extends Component<Props, {}> {
             this.props.storeStudent.fetchList({
               class: this._class, section: this.section,
               skip: 0, status: this.status
-            });
-          }}>Apply</Button>
+            },true);
+          }}>FILTER</Button>
       </div>
     )
   }

@@ -3,6 +3,7 @@ import { notificationHelper } from "../../../utils/NotificationHelper";
 import { TeacherApi, ApiResponse } from "../../../axios/api";
 import { formatCreateData } from "./helper";
 import { TeacherCreateModel } from "../../../model/model.teacher";
+import { StoreBase } from "../store.base";
 
 export type TeacherListType = {
     uid: string,
@@ -15,7 +16,7 @@ export type TeacherListType = {
     joiningDate:string
 }
 
-class StoreTeacher {
+class StoreTeacher extends StoreBase {
     @observable teacherList: Array<TeacherListType> = [];
     @observable listFetching = false;
     @observable isCreating = false;
@@ -62,6 +63,10 @@ class StoreTeacher {
             notificationHelper.showError(err.message);
             this.isCreating = false;
         }
+    }
+
+    public doFullCleanup = async () => {
+        //
     }
 }
 

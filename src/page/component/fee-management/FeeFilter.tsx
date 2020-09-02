@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react';
-import { InputPicker, Button } from 'rsuite';
+import { InputPicker, Button, DatePicker } from 'rsuite';
 import { metaDataStore } from '../../../mobx/store/store.meta';
 import { storeFee } from '../../../mobx/store/fee/store.fee';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const pickerStyle: CSSProperties = {
-    minWidth: 250,
+    maxWidth: 200,
     borderRadius: 0,
     marginRight: 15
 }
@@ -25,10 +25,18 @@ export default class FeeFilter extends Component<Props, {}> {
     private _class = -1;
     private section = 'ALL';
     private status = 'ALL';
+    private month?: Date;
 
     render() {
         return (
             <div style={styles}>
+                <DatePicker
+                    className="input-picker"
+                    placeholder="Select date"
+                    style={{ minWidth: 200, borderRadius: 0, marginRight: 15 }}
+                    cleanable={true}
+                    onClean={() => (this.month = undefined)}
+                    onChange={(date: Date) => (this.month = date)} />
                 <InputPicker
                     className="input-picker"
                     data={this.props.storeMeta.classData}
@@ -63,8 +71,8 @@ export default class FeeFilter extends Component<Props, {}> {
                     onClick={() => {
                         this.props.storeFee.fetchList({
                             class: this._class, section: this.section,
-                            skip: 0, status: this.status
-                        });
+                            skip: 0, status: this.status, month: this.month
+                        },true);
                     }}>Apply</Button>
             </div>
         )

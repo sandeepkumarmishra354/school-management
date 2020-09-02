@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
-import { DashboardApi, ApiResponse } from "../../axios/api";
-import { notificationHelper } from "../../utils/NotificationHelper";
+import { DashboardApi, ApiResponse } from "../../../axios/api";
+import { notificationHelper } from "../../../utils/NotificationHelper";
+import { StoreBase } from "../store.base";
 
 type data = { present: number, absent: number, total: number, prePer: number, absPer: number }
 
@@ -14,7 +15,7 @@ export interface DashboardFee {
     collection:number
 }
 
-class DashboardStore {
+class DashboardStore extends StoreBase {
     @observable attendence!: DashboardAttendence
     @observable feeData!: Array<DashboardFee>;
 
@@ -50,6 +51,10 @@ class DashboardStore {
                     notificationHelper.showError(err.message);
                 });
         }
+    }
+
+    public doFullCleanup = async () => {
+        //
     }
 }
 

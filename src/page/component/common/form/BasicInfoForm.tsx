@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react'
-import { Panel, FormGroup, ControlLabel, FormControl, DatePicker, InputPicker } from 'rsuite';
+import { Panel, FormGroup, ControlLabel, FormControl, DatePicker, InputPicker, Uploader, Icon } from 'rsuite';
 import { FormHeader, FormTextField } from './common';
 
 interface Props {
@@ -10,10 +10,11 @@ interface Props {
 }
 
 export default class BasicInfoForm extends Component<Props, {}> {
+
     render() {
         console.log(this.props.category);
         return (
-            <Panel style={{ ...this.props.style }} bodyFill shaded>
+            <Panel style={{ ...this.props.style }} bodyFill bordered>
                 <FormHeader icon="user" heading="Personal Information" />
                 <div style={{ padding: 25 }}>
                     <FormTextField name='firstName' label="First Name*" placeholder="enter first name" />
@@ -55,14 +56,14 @@ export default class BasicInfoForm extends Component<Props, {}> {
                             data={this.props.religion} />
                     </FormGroup>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <FormGroup style={{ flex:1}}>
+                        <FormGroup style={{ flex: 1 }}>
                             <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>Date of Birth*</ControlLabel>
                             <FormControl
                                 className="form-input"
                                 style={{ width: '90%' }}
                                 name="birthDate"
                                 accepter={DatePicker}
-                                cleanable={false}/>
+                                cleanable={false} />
                         </FormGroup>
                         <FormGroup style={{ flex: 1 }}>
                             <ControlLabel style={{ color: '#333945', fontWeight: 'bold' }}>Admission/Joining Date*</ControlLabel>
@@ -71,7 +72,7 @@ export default class BasicInfoForm extends Component<Props, {}> {
                                 style={{ width: '90%' }}
                                 name="admissionDate"
                                 accepter={DatePicker}
-                                cleanable={false}/>
+                                cleanable={false} />
                         </FormGroup>
                     </div>
 

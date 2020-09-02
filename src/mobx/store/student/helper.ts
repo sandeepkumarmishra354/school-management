@@ -4,20 +4,19 @@ export const formatCreateData = (data:StudentCreateModel) => {
     return {
         ...data,
         address: {
-            city:data.city,
-            country:data.country,
-            state:data.state,
-            area:data.area,
-            zipCode:data.zipCode,
-            landmark:data.landmark ?? '',
+            city: data.city,
+            state: data.state,
+            address: data.address,
         },
         contact: {
-            email: data.email.split(','),
-            phone: data.phone.split(','),
+            email: data.email,
+            phone: data.phone,
         },
         parent: {
             motherName: data.motherName,
             fatherName: data.fatherName,
+            phone: data.parentPhone,
+            email: data.parentEmail,
         }
     };
 }

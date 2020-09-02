@@ -11,14 +11,11 @@ export const PersonalInfoModel = {
 }
 
 export const ContactInfoModel = {
-    email: Schema.Types.StringType().isRequired("email address is required"),
+    email: Schema.Types.StringType().isEmail("enter valid email").isRequired("email address is required"),
     phone: Schema.Types.StringType().isRequired("phone number is required"),
     city: Schema.Types.StringType().isRequired("city is required"),
     state: Schema.Types.StringType().isRequired("state is required"),
-    country: Schema.Types.StringType().isRequired("country is required"),
-    zipCode: Schema.Types.StringType().isRequired("zip code is required"),
-    area: Schema.Types.StringType().isRequired("area is required"),
-    landmark: Schema.Types.StringType().isRequired("landmark is required"),
+    address: Schema.Types.StringType().isRequired("address is required"),
 }
 
 export const OfficialInfoModel = {

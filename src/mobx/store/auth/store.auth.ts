@@ -1,16 +1,22 @@
-import {observable, action} from 'mobx';
-import { notificationHelper } from '../../utils/NotificationHelper';
-import { BaseAPI } from '../../axios/api';
+import { observable, action, when } from 'mobx';
+import { notificationHelper } from '../../../utils/NotificationHelper';
+import { BaseAPI } from '../../../axios/api';
+import { StoreBase } from '../store.base';
 
-class AuthStore {
+class AuthStore extends StoreBase {
     @observable isLogingIn = false;
     @observable loggedIn = true;
     @observable schoolName = 'Standard Academy';
 
+    constructor() {
+        super();
+        when(() => !this.loggedIn, this.doFullCleanup);
+    }
+
     @action
-    public login = (email:string,password:string) => {
+    public login = (email: string, password: string) => {
         this.isLogingIn = true;
-        BaseAPI.post('/auth/login',{email,password})
+        BaseAPI.post('/auth/login', { email, password })
             .then(resp => {
                 notificationHelper.showSuccess(`Login success, Token: ${resp.data.payload.data.token}`);
                 this.isLogingIn = false;
@@ -24,13 +30,19 @@ class AuthStore {
     }
 
     @action
-    public setLoggedIn = (status:boolean) => {
+    public setLoggedIn = (status: boolean) => {
         this.loggedIn = status;
     }
 
     @action
     public logout = () => {
         this.loggedIn = false;
+    }
+
+    public doFullCleanup = () => {
+        //this function automatically runs after successfull logout
+        //TODO clear all states here
+        notificationHelper.showInfo('full cleanup');
     }
 }
 

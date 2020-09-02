@@ -1,5 +1,5 @@
 import React from 'react';
-import { authStore } from './mobx/store/store.auth';
+import { authStore } from './mobx/store/auth/store.auth';
 import HomePage from './page/HomePage';
 import { observer } from 'mobx-react';
 import { sidenavStore } from './mobx/store/store.sidenav';

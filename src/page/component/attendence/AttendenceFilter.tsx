@@ -2,13 +2,13 @@ import React, { Component, CSSProperties } from 'react'
 import { observer } from 'mobx-react'
 import { DatePicker, InputPicker, Button } from 'rsuite'
 import { notificationHelper } from '../../../utils/NotificationHelper'
-import { attendenceStore } from '../../../mobx/store/store.attendence';
+import { attendenceStore } from '../../../mobx/store/attendence/store.attendence';
 import { metaDataStore } from '../../../mobx/store/store.meta';
 
 const pickerStyle: CSSProperties = {
-    minWidth: 250,
-    borderRadius:0,
-    marginRight:15
+    maxWidth: 200,
+    borderRadius: 0,
+    marginRight: 15
 }
 
 interface Props {
@@ -20,12 +20,30 @@ const styles: CSSProperties = {
     width: '100%', marginBottom: 15,
     display: 'flex',
     alignItems: 'center',
-    flexWrap:'wrap',
+    flexWrap: 'wrap',
     padding: 20
 }
 
 @observer
 export default class AttendenceFilter extends Component<Props, {}> {
+
+    private _class = -1;
+    private skip = 0;
+    private date?: Date;
+    private section = 'ALL';
+    private type = 'ALL';
+    private status = 'ALL';
+
+    private filter = () => {
+        this.props.attendenceStore.fetch({
+            class: this._class,
+            section: this.section,
+            skip: this.skip,
+            type: this.type,
+            status: this.status,
+            date: this.date
+        }, true);
+    }
 
     render() {
         return (
@@ -33,25 +51,29 @@ export default class AttendenceFilter extends Component<Props, {}> {
                 <DatePicker
                     className="input-picker"
                     placeholder="Select date"
-                    style={{ minWidth: 280, borderRadius: 0,marginRight:15 }}
-                    cleanable={false}
-                    onChange={(date: Date) => {
-                        notificationHelper.showSuccess(date?.toISOString());
-                    }} />
+                    style={{ minWidth: 200, borderRadius: 0, marginRight: 15 }}
+                    cleanable={true}
+                    defaultValue={new Date()}
+                    onClean={() => (this.date = undefined)}
+                    onChange={(date: Date) => (this.date = date)} />
                 <InputPicker
                     className="input-picker"
                     data={this.props.metaStore.classData}
                     style={pickerStyle}
                     labelKey="name"
                     placeholder='Select class'
-                    cleanable={false} />
+                    defaultValue={-1}
+                    cleanable={false}
+                    onChange={(v: number) => (this._class = v)} />
                 <InputPicker
                     className="input-picker"
                     data={this.props.metaStore.sectionData}
                     style={pickerStyle}
                     labelKey="name"
                     placeholder='Select section'
-                    cleanable={false} />
+                    defaultValue="ALL"
+                    cleanable={false}
+                    onChange={(s: string) => (this.section = s)} />
                 <InputPicker
                     className="input-picker"
                     data={this.props.metaStore.userType}
@@ -59,10 +81,21 @@ export default class AttendenceFilter extends Component<Props, {}> {
                     labelKey="name"
                     placeholder='Select type'
                     cleanable={false}
-                    defaultValue='student' />
+                    defaultValue='ALL'
+                    onChange={(t: string) => (this.type = t)} />
+                <InputPicker
+                    className="input-picker"
+                    data={this.props.metaStore.attendenceStatusData}
+                    style={pickerStyle}
+                    labelKey="name"
+                    placeholder='Select status'
+                    cleanable={false}
+                    defaultValue='ALL'
+                    onChange={(s: string) => (this.status = s)} />
                 <Button
                     className='filter-btn'
                     color='blue'
+                    onClick={this.filter}
                     disabled={this.props.attendenceStore.fetching}>Apply</Button>
             </div>
         )
