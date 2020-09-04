@@ -4,17 +4,18 @@ import { Avatar, InputGroup, Icon, Input, IconButton, Dropdown, Badge, Whisper, 
 import { notificationHelper } from '../../../utils/NotificationHelper';
 import { authStore } from '../../../mobx/store/auth/store.auth';
 import { WhisperInstance } from 'rsuite/lib/Whisper';
+import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
     schoolName: string,
     photo: string,
     style?: CSSProperties
 }
 
 const headerStyle: CSSProperties = {
-    height: 65,
+    height: 60,
     backgroundColor: '#fff',
-    boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.424)',
+    boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.424)',
     paddingLeft: 40,
     display: 'flex',
     alignItems: 'center',
@@ -25,13 +26,13 @@ const headerStyle: CSSProperties = {
 }
 const headerSchoolStyle: CSSProperties = {
     color: '#000',
-    //fontWeight: 'bold',
     fontSize: 17,
+    fontWeight:400,
     marginLeft: 16,
 }
 
 @observer
-export default class AppHeader extends PureComponent<Props, {}> {
+class AppHeader extends PureComponent<Props, {}> {
 
     private accountMenuRef = React.createRef<WhisperInstance>();
 
@@ -55,7 +56,9 @@ export default class AppHeader extends PureComponent<Props, {}> {
                 <Dropdown.Menu
                     onSelect={this.onDropdownSelect}>
                     <Dropdown.Item eventKey={2} icon={<Icon icon="building-o" />}>
-                        View school Profile
+                        <Link to='/management/profile'>
+                            View school Profile
+                        </Link>
                     </Dropdown.Item>
                     <Dropdown.Item eventKey={1} icon={<Icon icon="exit" style={{ color: 'red' }} />}>
                         Logout
@@ -72,7 +75,6 @@ export default class AppHeader extends PureComponent<Props, {}> {
                     <Avatar alt='photo' circle src={this.props.photo} />
                     <h6 style={headerSchoolStyle}>{this.props.schoolName}</h6>
                     <InputGroup
-                        className='form-input'
                         style={{ marginLeft: 45, marginRight: 15, maxHeight: 40, maxWidth: 300 }}>
                         <InputGroup.Addon>
                             <Icon icon="search" />
@@ -112,3 +114,5 @@ export default class AppHeader extends PureComponent<Props, {}> {
         )
     }
 }
+
+export default withRouter(AppHeader);

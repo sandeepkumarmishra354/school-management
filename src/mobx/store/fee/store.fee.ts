@@ -48,7 +48,7 @@ class StoreFee extends StoreBase {
             try {
                 this.listFetching = true;
                 //TODO: implement
-                let res = (await ManagementApi.get<ApiResponse>('/fee/list', { params: filter })).data;
+                let res = (await ManagementApi.get<ApiResponse>('/list/fee', { params: filter })).data;
                 this.listFetching = false;
                 if (res.status === 200) {
                     this.feeList = res.payload.data;

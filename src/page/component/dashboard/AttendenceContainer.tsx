@@ -16,6 +16,10 @@ export default class AttendenceContainer extends React.Component<Props, {}> {
         super(props);
     }
 
+    componentDidMount = () => {
+        this.props.dashboardStore.fetchAttendence();
+    }
+
     render() {
         let data = this.props.dashboardStore.attendence;
         return (

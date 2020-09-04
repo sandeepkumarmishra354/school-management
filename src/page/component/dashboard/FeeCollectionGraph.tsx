@@ -16,6 +16,10 @@ export default class FeeCollectionGraph extends PureComponent<Props, {}> {
         super(props);
     }
 
+    componentDidMount = () => {
+        this.props.dashboardStore.fetchFee();
+    }
+
     private renderCustomBarLabel = (data: any) => {
         let { x, y, width, value } = data;
         return (

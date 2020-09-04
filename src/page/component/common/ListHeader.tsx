@@ -1,7 +1,8 @@
 import React, { Component, CSSProperties } from 'react'
 import { IconButton, Icon, Whisper, Tooltip } from 'rsuite'
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 
-interface Props {
+interface Props extends RouteComponentProps {
   heading: string,
   onCreate?:() => void,
   onRefresh:() => void,
@@ -21,7 +22,7 @@ const actionDivStyle: CSSProperties = {
   paddingRight: 15
 }
 
-export default class ListHeader extends Component<Props, {}> {
+class ListHeader extends Component<Props, {}> {
 
   constructor(props: Props) {
     super(props);
@@ -31,6 +32,7 @@ export default class ListHeader extends Component<Props, {}> {
   }
 
   render() {
+    let {url} = this.props.match;
     return (
       <div style={containerStyle}>
         <h5 style={headingStyle}>{this.props.heading}</h5>
@@ -43,14 +45,18 @@ export default class ListHeader extends Component<Props, {}> {
             <IconButton style={{ backgroundColor: 'transparent' }} icon={<Icon icon='refresh' style={{ color: '#fff' }} />} onClick={this.props.onRefresh} />
           </Whisper>
 
-          {this.props.onCreate && <Whisper
-            placement='top' trigger='hover'
-            speaker={<Tooltip>create new</Tooltip>}>
-            <IconButton style={{ backgroundColor: 'transparent' }} icon={<Icon icon='plus' style={{ color: '#fff' }} />} onClick={this.props.onCreate} />
-          </Whisper>}
+          <Link to={`${url}/new`}>
+            <Whisper
+              placement='top' trigger='hover'
+              speaker={<Tooltip>create new</Tooltip>}>
+              <IconButton style={{ backgroundColor: 'transparent' }} icon={<Icon icon='plus' style={{ color: '#fff' }} />} onClick={this.props.onCreate} />
+            </Whisper>
+          </Link>
           {this.props.children}
         </div>
       </div>
     )
   }
 }
+
+export default withRouter(ListHeader);

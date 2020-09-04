@@ -4,6 +4,7 @@ import HomePage from './page/HomePage';
 import { observer } from 'mobx-react';
 import { sidenavStore } from './mobx/store/store.sidenav';
 import LoginPage from './page/LoginPage';
+import { BrowserRouter } from 'react-router-dom';
 
 interface Props {
   authStore: typeof authStore,
@@ -18,8 +19,12 @@ export default class App extends React.Component<Props, {}> {
 
   render() {
     if (this.props.authStore.loggedIn)
-      return <HomePage
-        navStore={sidenavStore}/>
+      return(
+        <BrowserRouter>
+          <HomePage
+            navStore={sidenavStore} />
+        </BrowserRouter>
+      );
     else
       return <LoginPage store={authStore} />
   }

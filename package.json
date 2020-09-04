@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
+    "dateformat": "^3.0.3",
     "electron-is-dev": "^1.2.0",
     "less-loader": "^6.2.0",
     "mobx": "^5.15.4",
@@ -65,6 +66,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/dateformat": "^3.0.1",
     "@types/electron": "^1.6.10",
     "@types/react-router-dom": "^5.1.5",
     "@types/recharts": "^1.8.14",

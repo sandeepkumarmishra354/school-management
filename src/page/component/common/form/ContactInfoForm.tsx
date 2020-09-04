@@ -5,9 +5,9 @@ import { FormHeader, FormTextField } from './common'
 export default class ContactInfoForm extends Component<{ style?: CSSProperties }, {}> {
     render() {
         return (
-            <Panel style={{ ...this.props.style }} bodyFill bordered>
+            <Panel style={{ ...this.props.style, border: '0.5px solid #EAF0F1', borderRadius: 8 }} bodyFill>
                 <FormHeader icon='envelope' heading="Contact Information" />
-                <div style={{ padding: 25 }}>
+                <div style={{ paddingLeft: 25, paddingRight: 25 }}>
                     <FormTextField
                         type='email'
                         name='email' label="Email*"

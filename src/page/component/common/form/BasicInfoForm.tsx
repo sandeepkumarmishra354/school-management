@@ -14,9 +14,9 @@ export default class BasicInfoForm extends Component<Props, {}> {
     render() {
         console.log(this.props.category);
         return (
-            <Panel style={{ ...this.props.style }} bodyFill bordered>
+            <Panel style={{ ...this.props.style, border: '0.5px solid #EAF0F1', borderRadius: 8 }} bodyFill>
                 <FormHeader icon="user" heading="Personal Information" />
-                <div style={{ padding: 25 }}>
+                <div style={{ paddingLeft: 25,paddingRight:25, }}>
                     <FormTextField name='firstName' label="First Name*" placeholder="enter first name" />
                     <FormTextField name='lastName' label="Last Name*" placeholder="enter last name" />
                     <FormTextField name='adharNo' label="Adhar Number*" placeholder="123456789012" />

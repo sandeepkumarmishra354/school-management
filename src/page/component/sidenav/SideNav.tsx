@@ -1,24 +1,17 @@
 import React, { Component } from 'react'
 import { Sidenav, Nav, Icon } from 'rsuite'
-import { NavOption } from '../../mobx/store/store.sidenav'
+import { NavOption } from '../../../mobx/store/store.sidenav'
 import { observer } from 'mobx-react';
+import { routeHandler } from '../../../utils/route_handler';
 
 interface Props {
-    setNav: (nav:NavOption) => void,
-    expand:boolean,
-    nav:NavOption
+    setNav: (nav: NavOption) => void,
+    expand: boolean,
+    nav: NavOption
 }
 
 @observer
 export default class SideNav extends Component<Props, {}> {
-
-    constructor(props:Props) {
-        super(props);
-    }
-
-    private _navSelected = (nav:NavOption) => {
-        this.props.setNav(nav);
-    }
 
     render() {
         return (
@@ -26,7 +19,7 @@ export default class SideNav extends Component<Props, {}> {
                 style={{ backgroundColor: "transparent" }}
                 appearance='inverse'
                 expanded={this.props.expand}
-                onSelect={this._navSelected}
+                onSelect={routeHandler.handleSideNavOptions}
                 activeKey={this.props.nav}>
                 <Sidenav.Body>
                     <Nav>
@@ -39,8 +32,8 @@ export default class SideNav extends Component<Props, {}> {
                         <Nav.Item eventKey={NavOption.SALERY_MANAGEMENT} icon={<Icon icon="coincide" />}>Salery Management</Nav.Item>
                         <Nav.Item eventKey={NavOption.SETTING} icon={<Icon icon="setting" />}>Settings</Nav.Item>
                         <Nav.Item eventKey={NavOption.HELP} icon={<Icon icon="help-o" />}>
-                            <span>Help</span>
-                        </Nav.Item>
+                            Help
+                            </Nav.Item>
                     </Nav>
                 </Sidenav.Body>
             </Sidenav>
