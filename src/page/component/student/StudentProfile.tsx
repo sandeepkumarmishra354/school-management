@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import { Panel, Breadcrumb, Loader, Message, Button, Icon } from 'rsuite';
 import { storeStudent } from '../../../mobx/store/student/store.student';
@@ -10,6 +10,8 @@ import ProfileOfficialInfo from '../common/profile/ProfileOfficialInfo';
 import ProfileParentInfo from './ProfileParentInfo';
 import EmailSmsSendDialog from '../common/EmailSmsSendDialog';
 import AlertDeleteDialog from '../common/AlertDeleteDialog';
+import ProfileDocsList from '../common/profile/ProfileDocsList';
+import FileUploadDialog from '../common/FileUploadDialog';
 
 const NavLink = (props: any) => (
   <Breadcrumb.Item
@@ -23,16 +25,18 @@ interface Props extends RouteComponentProps {
 interface State {
   showSmsDialog: boolean,
   showDeleteDialog: boolean,
+  showUploadDialog: boolean,
 }
 
 @observer
 class StudentProfile extends Component<Props, State> {
 
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      showSmsDialog:false,
-      showDeleteDialog:false
+      showSmsDialog: false,
+      showDeleteDialog: false,
+      showUploadDialog: false,
     };
   }
 
@@ -82,17 +86,26 @@ class StudentProfile extends Component<Props, State> {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{marginBottom:15,width:'100%',display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
-          <Button color='orange' size='xs' style={{marginRight:8}}>
+        <div style={{ marginBottom: 15, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Button color='orange' size='xs' style={{ marginRight: 8 }}>
             <Icon icon='pencil' style={{ color: '#fff', marginRight: 5 }} />
             EDIT
           </Button>
           <Button
-          color='blue' size='xs'
-          style={{ marginRight: 8 }}
-          onClick={() => {
-            this.setState({showSmsDialog:true});
-          }}>
+            color='green'
+            size='xs' style={{ marginRight: 8 }}
+            onClick={() => {
+              this.setState({ showUploadDialog: true });
+            }}>
+            <Icon icon='file-upload' style={{ color: '#fff', marginRight: 5 }} />
+            UPLOAD
+          </Button>
+          <Button
+            color='blue' size='xs'
+            style={{ marginRight: 8 }}
+            onClick={() => {
+              this.setState({ showSmsDialog: true });
+            }}>
             <Icon icon='reply' style={{ color: '#fff', marginRight: 5 }} />
             EMAIL / SMS
           </Button>
@@ -101,10 +114,10 @@ class StudentProfile extends Component<Props, State> {
             REPORT
           </Button>
           <Button
-          color='red' size='xs'
-          onClick={() => {
-            this.setState({showDeleteDialog:true});
-          }}>
+            color='red' size='xs'
+            onClick={() => {
+              this.setState({ showDeleteDialog: true });
+            }}>
             <Icon icon='trash' style={{ color: '#fff', marginRight: 5 }} />
             DELETE
           </Button>
@@ -141,6 +154,7 @@ class StudentProfile extends Component<Props, State> {
             rollNo={data.rollNo}
             date={data.admissionDate} />
         </div>
+        <ProfileDocsList style={{ width: '100%', marginBottom: 50 }} />
       </div>
     );
   }
@@ -157,17 +171,27 @@ class StudentProfile extends Component<Props, State> {
         </div>
         {this.getContent()}
         <EmailSmsSendDialog
-        show={this.state.showSmsDialog}
-        onHide={() => {
-          this.setState({showSmsDialog:false});
-        }}
-        onSend={(message) => {}}/>
+          show={this.state.showSmsDialog}
+          onHide={() => {
+            this.setState({ showSmsDialog: false });
+          }}
+          onSend={(message) => { }} />
         <AlertDeleteDialog
           show={this.state.showDeleteDialog}
           onHide={() => {
             this.setState({ showDeleteDialog: false });
           }}
-          onDelete={() => { }}/>
+          onDelete={() => { }} />
+        <FileUploadDialog
+          show={this.state.showUploadDialog}
+          userId={(this.props.match.params as any).uid}
+          userType='STUDENT'
+          onHide={() => {
+            this.setState({ showUploadDialog: false });
+          }}
+          onSuccess={(doc) => {
+            //
+          }} />
       </Panel>
     )
   }

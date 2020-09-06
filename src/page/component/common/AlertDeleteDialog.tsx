@@ -34,14 +34,15 @@ export default class AlertDeleteDialog extends Component<Props,State> {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
+                    color='cyan'
                         onClick={this.props.onHide}>
-                        <Icon icon="plus" rotate={45} style={{ color: '#777E8B', marginRight: 10 }} />
+                        <Icon icon="plus" rotate={45} style={{ color: '#fff', marginRight: 10 }} />
                         Cancel
                     </Button>
                     <Button
                         color='red'
                         onClick={this.onDeleteClicked}>
-                        <Icon icon="trash" style={{ color: '#fff', marginRight: 10 }} />
+                        <Icon icon="trash2" style={{ color: '#fff', marginRight: 10 }} />
                         Delete
                     </Button>
                 </Modal.Footer>

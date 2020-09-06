@@ -29,3 +29,11 @@ export interface BasicProfileOption {
     createdAt: Date,
     updatedAt: Date,
 }
+
+export interface UploadedDocs {
+    id: string,
+    createdAt: Date,
+    name: string,
+    mimetype: string,
+    url: string
+}

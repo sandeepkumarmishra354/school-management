@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react'
-import { Modal, Button, Input, Icon } from 'rsuite';
+import { Modal, Button, Input, Icon,Animation } from 'rsuite';
 
 interface Props {
     style?: CSSProperties,
@@ -18,13 +18,15 @@ export default class EmailSmsSendDialog extends Component<Props, State> {
         this.state = { error: false };
     }
 
-    componentWillUnmount = () => {
-        if (this.timeout)
-            clearTimeout(this.timeout);
-    }
-
     private message = '';
     private timeout?: NodeJS.Timeout;
+
+    private onExit = () => {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+            this.setState({ error: false });
+        }
+    }
 
     private sendClicked = () => {
         if (this.message !== '')
@@ -43,7 +45,8 @@ export default class EmailSmsSendDialog extends Component<Props, State> {
             <Modal
                 backdrop='static'
                 show={this.props.show}
-                onHide={this.props.onHide}>
+                onHide={this.props.onHide}
+                onExit={this.onExit}>
                 <Modal.Header>
                     <h6 style={{ textAlign: 'center' }}>Send SMS / Email</h6>
                 </Modal.Header>
@@ -55,10 +58,12 @@ export default class EmailSmsSendDialog extends Component<Props, State> {
                             rows={5}
                             placeholder="Enter your message here..."
                             onChange={text => (this.message = text)} />
-                        {this.state.error && <p style={{ marginTop: 5, color: 'red' }}>please enter your message</p>}
+                        <Animation.Fade in={this.state.error}>
+                            <p style={{ marginTop: 5, color: 'red' }}>please enter your message</p>
+                        </Animation.Fade>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer style={{marginTop:-15}}>
                     <Button
                         color='blue'
                         onClick={this.sendClicked}>
@@ -69,5 +74,4 @@ export default class EmailSmsSendDialog extends Component<Props, State> {
             </Modal>
         );
     }
-
 }
