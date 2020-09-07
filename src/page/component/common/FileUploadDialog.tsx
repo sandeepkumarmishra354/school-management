@@ -2,11 +2,9 @@ import React, { Component, CSSProperties } from 'react'
 import { Modal, Button, Icon, IconButton, Progress, Input } from 'rsuite';
 import { UploadedDocs } from '../../../mobx/types/common';
 import { alertHelper } from '../../../utils/Alerthelper';
-import { ManagementApi, ApiResponse } from '../../../axios/api';
-import Form from 'form-data';
-import { notificationHelper } from '../../../utils/NotificationHelper';
-const fs = window.require('fs');
-const remote = window.require('electron').remote;
+import fs from 'fs';
+import { remote } from 'electron';
+import { storeManagement } from '../../../mobx/store/management/store.management';
 
 interface Props {
     style?: CSSProperties,
@@ -67,11 +65,20 @@ export default class FileUploadDialog extends Component<Props, State> {
 
     private uploadClicked = () => {
         if (this.state.selectedFile !== '') {
-            let stat = fs.statSync(this.state.selectedFile);
-            if (stat.size < this.MAX_FILE_SIZE) {
-                this.startUpload();
+            if (this.docTitle !== '') {
+                fs.stat(this.state.selectedFile, (err, stat) => {
+                    if (!err) {
+                        if (stat.size < this.MAX_FILE_SIZE) {
+                            this.startUpload();
+                        } else {
+                            alertHelper.showError('File size must be less than 2 MB');
+                        }
+                    } else {
+                        alertHelper.showError(err.message);
+                    }
+                });
             } else {
-                alertHelper.showError('File size must be less than 2 MB');
+                alertHelper.showInfo('Please specify the document title');
             }
         } else {
             alertHelper.showInfo('Choose a file');
@@ -80,42 +87,33 @@ export default class FileUploadDialog extends Component<Props, State> {
 
     private startUpload = () => {
         this.setState({ uploading: true });
-        let form = new Form();
-        form.append('title', this.docTitle);
-        form.append('note', this.docNote);
-        form.append('userType', this.props.userType);
-        form.append('userId', this.props.userId);
-        form.append('doc', fs.createReadStream(this.state.selectedFile));
-        ManagementApi.post<ApiResponse>('/docs', form, {
-            transformRequest: (data, headers) => {
-                headers['content-type'] = 'multipart/form-data';
-                return data;
-            },
-            onUploadProgress: (progress) => {
-                let { loaded, total } = progress;
-                let per = (loaded * 100) / total;
-                this.setState({ progress: Math.round(per) });
-                if(per >= 100)
-                    this.onUploadSuccess();
-            }
-        })
-        .then(res => {
-            if(res.data.status === 200)
-                alertHelper.showSuccess(res.data.message);
-            else
-                alertHelper.showError(res.data.message);
-        })
-        .catch(err => {
-            alertHelper.showError(err.message);
-        })
+        storeManagement.uploadDoc({
+            title: this.docTitle,
+            note: this.docNote,
+            file: this.state.selectedFile,
+            userId: this.props.userId,
+            userType: this.props.userType,
+            onProgress: this.onProgress,
+            onSuccess: this.onUploadSuccess,
+            onError: this.onUploadError
+        });
     }
 
-    private onUploadSuccess = () => {
-        //
+    private onProgress = (progress: any) => {
+        let { loaded, total } = progress;
+        let per = (loaded * 100) / total;
+        this.setState({ progress: Math.round(per) });
     }
 
-    private onProgress = () => {
-        //
+    private onUploadSuccess = (data: UploadedDocs) => {
+        this.setState({ uploading: false });
+        alertHelper.showSuccess('file successfully uploaded.');
+        this.props.onSuccess(data);
+    }
+
+    private onUploadError = (message: string) => {
+        alertHelper.showError(message);
+        this.setState({ uploading: false });
     }
 
     render() {
@@ -155,7 +153,7 @@ export default class FileUploadDialog extends Component<Props, State> {
                             componentClass='textarea'
                             rows={3}
                             placeholder='Enter custom note (optional)'
-                            onChange={text => (this.docTitle = text)} />
+                            onChange={text => (this.docNote = text)} />
                         {this.state.uploading && <Progress.Line
                             percent={this.state.progress}
                             status='active' />}

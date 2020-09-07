@@ -9,7 +9,6 @@ export default class ContactInfoForm extends Component<{ style?: CSSProperties }
                 <FormHeader icon='envelope' heading="Contact Information" />
                 <div style={{ paddingLeft: 25, paddingRight: 25 }}>
                     <FormTextField
-                        type='email'
                         name='email' label="Email*"
                         placeholder="student@email.com"/>
                     <FormTextField

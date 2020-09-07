@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-input[type=text] {
+input[type=text],input[type=textarea] {
     color: #0A79DF;
 }
 

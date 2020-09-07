@@ -12,6 +12,7 @@ import EmailSmsSendDialog from '../common/EmailSmsSendDialog';
 import AlertDeleteDialog from '../common/AlertDeleteDialog';
 import ProfileDocsList from '../common/profile/ProfileDocsList';
 import FileUploadDialog from '../common/FileUploadDialog';
+import { storeManagement } from '../../../mobx/store/management/store.management';
 
 const NavLink = (props: any) => (
   <Breadcrumb.Item
@@ -154,7 +155,11 @@ class StudentProfile extends Component<Props, State> {
             rollNo={data.rollNo}
             date={data.admissionDate} />
         </div>
-        <ProfileDocsList style={{ width: '100%', marginBottom: 50 }} />
+        <ProfileDocsList
+          style={{ width: '100%', marginBottom: 50 }}
+          store={storeManagement}
+          userId={(this.props.match.params as any).uid}
+          userType='STUDENT' />
       </div>
     );
   }
@@ -190,7 +195,7 @@ class StudentProfile extends Component<Props, State> {
             this.setState({ showUploadDialog: false });
           }}
           onSuccess={(doc) => {
-            //
+            this.setState({ showUploadDialog: false });
           }} />
       </Panel>
     )

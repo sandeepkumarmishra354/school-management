@@ -13,6 +13,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
+    "concat-stream": "^2.0.0",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
     "dateformat": "^3.0.3",
@@ -67,6 +68,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/concat-stream": "^1.6.0",
     "@types/dateformat": "^3.0.1",
     "@types/electron": "^1.6.10",
     "@types/form-data": "^2.5.0",

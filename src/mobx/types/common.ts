@@ -35,5 +35,6 @@ export interface UploadedDocs {
     createdAt: Date,
     name: string,
     mimetype: string,
-    url: string
+    note:string,
+    title:string,
 }

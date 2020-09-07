@@ -4,7 +4,8 @@ import https from 'https';
 
 const BaseUrl = 'http://127.0.0.1:8080/api';
 const TimeOut = 10 * 1000;//10 seconds
-const config:AxiosRequestConfig = {
+
+export const axiosConfig: AxiosRequestConfig = {
     timeout: TimeOut,
     headers: {
         'Authorization': 'auth-token',
@@ -16,32 +17,32 @@ const config:AxiosRequestConfig = {
 };
 
 export interface ApiResponse {
-    status:number,
-    message:string,
-    payload: {data:any}
+    status: number,
+    message: string,
+    payload: { data: any }
 }
 
 export const BaseAPI = axios.create({
     baseURL: BaseUrl,
-    ...config
+    ...axiosConfig
 });
 export const DashboardApi = axios.create({
     baseURL: `${BaseUrl}/dashboard`,
-    ...config
+    ...axiosConfig
 });
 export const AttendenceApi = axios.create({
     baseURL: `${BaseUrl}/attendence`,
-    ...config
+    ...axiosConfig
 });
 export const ManagementApi = axios.create({
     baseURL: `${BaseUrl}/management`,
-    ...config
+    ...axiosConfig
 });
 export const StudentApi = axios.create({
     baseURL: `${BaseUrl}/student`,
-    ...config
+    ...axiosConfig
 });
 export const TeacherApi = axios.create({
     baseURL: `${BaseUrl}/teacher`,
-    ...config
+    ...axiosConfig
 });
