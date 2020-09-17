@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react'
-import { Modal, Button, Icon, IconButton, Progress, Input } from 'rsuite';
+import { Modal, Button, Icon, IconButton, Progress, Input, Toggle, RadioGroup, Radio, Divider } from 'rsuite';
 import { UploadedDocs } from '../../../mobx/types/common';
 import { alertHelper } from '../../../utils/Alerthelper';
 import fs from 'fs';
@@ -124,7 +124,7 @@ export default class FileUploadDialog extends Component<Props, State> {
                 onHide={this.props.onHide}
                 onExit={this.onExit}>
                 <Modal.Header closeButton={!this.state.uploading}>
-                    <h6 style={{ textAlign: 'center' }}>Upload Document</h6>
+                    <Modal.Title>Upload Document</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div style={{
@@ -157,6 +157,14 @@ export default class FileUploadDialog extends Component<Props, State> {
                         {this.state.uploading && <Progress.Line
                             percent={this.state.progress}
                             status='active' />}
+                        <div style={{width:'100%',marginTop:10,display:'flex',alignItems:'center'}}>
+                            <h6 style={{fontWeight:400,marginRight:15}}>Type</h6>
+                            <RadioGroup inline appearance='picker' defaultValue='OFFICIAL'>
+                                <Radio value='OFFICIAL'>Official</Radio>
+                                <Divider vertical/>
+                                <Radio value='MEDICAL'>Medical</Radio>
+                            </RadioGroup>
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{ marginTop: -15 }}>

@@ -7,6 +7,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import { routeHandler } from '../utils/route_handler';
 import AppSidebar from './component/sidenav/AppSidebar';
 import MainRoute from './component/routes/route.main';
+import { storeSchoolProfile } from '../mobx/store/management/store.schoolprofile';
 
 interface Props extends RouteComponentProps {
     navStore: typeof sidenavStore
@@ -27,8 +28,7 @@ class HomePage extends React.Component<Props, {}> {
                     <div style={{ left: this.props.navStore.sideNavCurrentWidth, backgroundColor: '#f8f8ff' }} className="content-holder-main">
                         <AppHeader
                             style={{ right: 0, left: this.props.navStore.sideNavCurrentWidth }}
-                            schoolName="Standard Academy"
-                            photo="https://webcomicms.net/sites/default/files/clipart/157441/image-school-157441-6977901.jpg" />
+                            store={storeSchoolProfile} />
                         <div className="content-holder">
                             <MainRoute />
                         </div>

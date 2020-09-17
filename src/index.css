@@ -4,6 +4,20 @@
   box-sizing: border-box;
 }
 
+.sidebar-container::-webkit-scrollbar,body::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.sidebar-container::-webkit-scrollbar-track,body::-webkit-scrollbar-track {
+  background: #DAE0E2;  
+}
+.sidebar-container::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb {
+  background-color: #A4B0BD;
+  border-radius: 20px;
+}
+
 input[type=text],input[type=textarea] {
     color: #0A79DF;
 }
@@ -44,12 +58,12 @@ input[type=text],input[type=textarea] {
     background-color: #2F363F;
     height: 100vh;
     z-index: 1000;
-    box-shadow: 2px 0 2px 0 rgba(0, 0, 0, .5);
+    box-shadow: 0px 0px 6px 0 rgba(0, 0, 0, 0.274);
 }
 
 .brand-name {
     padding: 10px;
-    background-color: #2B2B52;
+    background-color: #1b66f2;
     color: #fff;
     text-align: center;
     display: flex;

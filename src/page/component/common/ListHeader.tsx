@@ -3,6 +3,7 @@ import { IconButton, Icon, Whisper, Tooltip } from 'rsuite'
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 
 interface Props extends RouteComponentProps {
+  style?: CSSProperties,
   heading: string,
   onCreate?:() => void,
   onRefresh:() => void,
@@ -10,7 +11,8 @@ interface Props extends RouteComponentProps {
 
 const containerStyle: CSSProperties = {
   width: '100%', height: 50,
-  backgroundColor: '#3C40C6', display: 'flex',
+  backgroundColor: '#3498FF',
+  display: 'flex',
   alignItems: 'center', justifyContent: 'space-between'
 }
 const headingStyle: CSSProperties = {
@@ -34,7 +36,7 @@ class ListHeader extends Component<Props, {}> {
   render() {
     let {url} = this.props.match;
     return (
-      <div style={containerStyle}>
+      <div style={{ ...containerStyle,...this.props.style}}>
         <h5 style={headingStyle}>{this.props.heading}</h5>
         <div style={actionDivStyle}>
 

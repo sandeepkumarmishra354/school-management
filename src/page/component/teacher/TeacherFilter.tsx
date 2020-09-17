@@ -40,7 +40,7 @@ export default class TeacherFilter extends Component<Props, {}> {
                     onChange={(value) => { this.status = value }} />
                 <Button
                     className='filter-btn'
-                    color='blue'
+                    style={{ backgroundColor: '#3498FF',color:'#fff'}}
                     disabled={this.props.storeTeacher.listFetching}
                     onClick={() => {
                         this.props.storeTeacher.fetchList({

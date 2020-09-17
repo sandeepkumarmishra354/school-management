@@ -1,5 +1,6 @@
 import { History } from 'history';
 import { NavOption, sidenavStore } from '../mobx/store/store.sidenav';
+import { alertHelper } from './Alerthelper';
 
 class RouteHandler {
     private _history!: History;
@@ -13,7 +14,8 @@ class RouteHandler {
         'help': NavOption.HELP,
         'salery': NavOption.SALERY_MANAGEMENT,
         'setting': NavOption.SETTING,
-        'stats': NavOption.STATS
+        'stats': NavOption.STATS,
+        'masters': NavOption.MASTERS
     };
 
     private initNav = async (path:string) => {
@@ -33,6 +35,7 @@ class RouteHandler {
     public get history() { return this._history; }
 
     public handleSideNavOptions = (nav:NavOption) => {
+        alertHelper.showInfo(nav.toString());
         let path = '/';
         switch (nav) {
             case NavOption.DASHBOARD:
@@ -64,6 +67,9 @@ class RouteHandler {
                 break;
             case NavOption.TEACHER:
                 path = '/teacher';
+                break;
+            case NavOption.MASTERS:
+                path = '/masters';
                 break;
         }
         this.history.replace(path);

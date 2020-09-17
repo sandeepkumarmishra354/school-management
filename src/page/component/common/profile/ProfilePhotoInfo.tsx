@@ -16,7 +16,7 @@ interface Props {
 const getStatusColor = (status: StatusType) => {
     switch (status) {
         case "ACTIVE":
-            return '#0A79DF';
+            return '#1b66f2';
         case "INACTIVE":
             return '#EEC213';
         default:
@@ -45,12 +45,12 @@ export default class ProfilePhotoInfo extends Component<Props, {}> {
                             <span
                                 style={{ marginLeft: 15, fontSize: 10, padding: 4,borderRadius:4, backgroundColor: getStatusColor(this.props.status), color: '#fff' }}>{this.props.status}</span>
                         </h5>
-                        <code style={{ color: 'blue', textDecoration: 'underline' }}>{email}</code>
+                        <code style={{ color: '#1b66f2', textDecoration: 'underline' }}>{email}</code>
                     </div>
                 </div>
 
                 <div>
-                    <p><span style={{ color: 'blue' }}>CreatedAt:</span> &nbsp;{DateFormatter.mediumDate(createdAt)}</p>
+                    <p><span style={{ color: '#1b66f2' }}>CreatedAt:</span> &nbsp;{DateFormatter.mediumDate(createdAt)}</p>
                     <p><span style={{ color: 'red' }}>UpdatedAt:</span> &nbsp;{DateFormatter.mediumDate(updatedAt)}</p>
                 </div>
             </div>

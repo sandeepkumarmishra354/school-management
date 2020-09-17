@@ -23,7 +23,9 @@ export default class AlertDeleteDialog extends Component<Props,State> {
                 show={this.props.show}
                 onHide={this.props.onHide}>
                 <Modal.Header>
-                    <h4 style={{ textAlign: 'center',color:'red' }}>Are you sure ?</h4>
+                    <Modal.Title>
+                        <span style={{color: 'red' }}>Are you sure ?</span>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div style={{ ...this.props.style }}>
@@ -36,7 +38,7 @@ export default class AlertDeleteDialog extends Component<Props,State> {
                     <Button
                     color='cyan'
                         onClick={this.props.onHide}>
-                        <Icon icon="plus" rotate={45} style={{ color: '#fff', marginRight: 10 }} />
+                        <Icon icon="close" style={{ color: '#fff', marginRight: 10 }} />
                         Cancel
                     </Button>
                     <Button

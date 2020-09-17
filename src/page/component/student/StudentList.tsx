@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react';
-import { Table, Avatar, Panel, Whisper, IconButton, Popover, Dropdown, Icon } from 'rsuite';
+import { Table, Panel, Whisper, IconButton, Popover, Dropdown, Icon } from 'rsuite';
 import { storeStudent, StudentListType } from '../../../mobx/store/student/store.student';
 import { observer } from 'mobx-react';
 import StudentFilter from './StudentFilter';
@@ -22,7 +22,7 @@ const getStatusColor = (status: string) => {
 }
 
 const headerCellStyle: CSSProperties = {
-  color: 'blue',
+  color: '#000',
   fontWeight: 'bold',
   fontSize: 15,
 }
@@ -35,7 +35,7 @@ const flexCellStyle: CSSProperties = {
   alignItems: 'center'
 }
 const cellStyle: CSSProperties = {
-  color: '#000',
+  color: '#535C68',
   cursor: 'pointer'
   //fontWeight: 'bold'
 }
@@ -82,7 +82,7 @@ class StudentList extends Component<Props, {}> {
 
   render() {
     return (
-      <Panel bodyFill shaded style={{ maxHeight: 700,margin:35 }}>
+      <Panel bodyFill shaded style={{ maxHeight: 750, margin: 35 }}>
         <ListHeader
           heading="Student's List"
           onRefresh={() => { }}>
@@ -99,31 +99,18 @@ class StudentList extends Component<Props, {}> {
         <StudentFilter storeStudent={storeStudent} storeMeta={metaDataStore} />
         <Table
           rowKey='uid'
-          onRowClick={(row:StudentListType) => {
+          onRowClick={(row: StudentListType) => {
             let url = `${this.props.match.url}/profile/${row.uid}`;
             this.props.history.push(url);
           }}
           data={this.props.store.studentList}
-          height={700}
+          height={750}
           hover={true}
           loading={this.props.store.listFetching}
           bordered cellBordered>
           <Table.Column flexGrow={1} align='center'>
             <Table.HeaderCell style={headerCellStyle}>Id</Table.HeaderCell>
-            <Table.Cell className="table-cell" dataKey='studentId'>
-              {(rowData: StudentListType) => (
-                <div style={{ ...flexCellStyle }}>
-                  <Avatar
-                    style={{ marginRight: 10 }}
-                    src={rowData.avatar}
-                    alt='photo' circle size='xs' />
-                  <h6
-                    style={{ fontWeight: 400, color: 'red' }}>
-                    {rowData.studentId}
-                  </h6>
-                </div>
-              )}
-            </Table.Cell>
+            <Table.Cell style={{ cursor: 'pointer', color: 'red' }} className="table-cell" dataKey='studentId' />
           </Table.Column>
 
           <Table.Column flexGrow={1} align='center'>

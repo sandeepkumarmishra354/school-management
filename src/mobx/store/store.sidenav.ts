@@ -4,16 +4,16 @@ import { StoreBase } from "./store.base";
 export enum NavOption {
     DASHBOARD, STUDENT, TEACHER, STATS, FEE_COLLECTION,
     ATTENDENCE_MANAGEMENT, SETTING,
-    HELP,SALERY_MANAGEMENT
+    HELP,SALERY_MANAGEMENT,MASTERS
 };
 
 class SidenavStore extends StoreBase {
     @observable expanded: boolean = true;
     @observable currentNav: NavOption = NavOption.DASHBOARD;
 
-    private readonly expandedWidth = 220;
+    private readonly expandedWidth = 230;
     private readonly collapsedWidth = 56;
-    private readonly collageName = 'Web Solutions';
+    private readonly collageName = 'S-Tech Solutions';
 
     @computed
     public get sideNavCurrentWidth(): number {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Panel, Button, Breadcrumb } from 'rsuite'
+import { Form, Panel, Button, Breadcrumb, Icon } from 'rsuite'
 import BasicInfoForm from '../common/form/BasicInfoForm';
 import { FormTextField, FormHeader } from '../common/form/common';
 import ContactInfoForm from '../common/form/ContactInfoForm';
@@ -8,9 +8,9 @@ import { metaDataStore } from '../../../mobx/store/store.meta';
 import { Schema } from 'schema-typed';
 import { storeStudent } from '../../../mobx/store/student/store.student';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface Props {
+interface Props extends RouteComponentProps {
   formModel: Schema,
   store: typeof storeStudent
 }
@@ -22,7 +22,7 @@ const NavLink = (props: any) => (
 );
 
 @observer
-export default class CreateNewStudent extends Component<Props, {}> {
+class CreateNewStudent extends Component<Props, {}> {
 
   private formRef:any;
 
@@ -40,11 +40,12 @@ export default class CreateNewStudent extends Component<Props, {}> {
   render() {
     return (
       <Panel style={{marginTop:-25}}>
-        <Breadcrumb>
-          <NavLink to='/'>Home</NavLink>
-          <NavLink to='/student'>Students</NavLink>
-          <NavLink active>New</NavLink>
-        </Breadcrumb>
+        <Button
+          onClick={this.props.history.goBack}
+          style={{ backgroundColor: '#DAE0E2', marginBottom: 45 }}>
+          <Icon icon='arrow-left' style={{ marginRight: 10 }} />
+                    Go Back
+                    </Button>
         <Form
           style={{ marginTop: -15 }}
           fluid model={this.props.formModel}
@@ -79,12 +80,13 @@ export default class CreateNewStudent extends Component<Props, {}> {
         </Form>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
           <Button
-          size='lg'
             loading={this.props.store.isCreating}
-            color='violet' style={{ minWidth: 200 }}
+            color='blue' style={{ minWidth: 200 }}
             onClick={this.onSubmit}>CREATE RECORD</Button>
         </div>
       </Panel>
     )
   }
 }
+
+export default withRouter(CreateNewStudent);

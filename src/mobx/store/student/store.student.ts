@@ -5,6 +5,7 @@ import { StudentCreateModel } from "../../../model/model.student";
 import { formatCreateData } from "./helper";
 import { StoreBase } from "../store.base";
 import { StudentProfileOption } from "../../types/student_profile";
+import { MedicalInfoData } from "../../types/common";
 
 export type StudentListType = {
     uid: string,
@@ -19,11 +20,13 @@ export type StudentListType = {
     address: string,
 }
 
-class StoreStudent extends StoreBase {
+export class StoreStudent extends StoreBase {
     @observable studentList: Array<StudentListType> = [];
     @observable listFetching = false;
     @observable profileStatus: 'FETCHING' | 'SUCCESS' | 'ERROR' = 'FETCHING';
+    @observable medicalStatus: 'FETCHING' | 'SUCCESS' | 'ERROR' = 'FETCHING';
     @observable profileData?: StudentProfileOption;
+    @observable medicalInfoData?: MedicalInfoData;
     @observable isCreating = false;
 
     @action
@@ -73,7 +76,6 @@ class StoreStudent extends StoreBase {
             if (res.status === 200) {
                 this.profileStatus = 'SUCCESS';
                 this.profileData = res.payload.data;
-                console.log(this.profileData);
             } else {
                 notificationHelper.showError(res.message);
                 this.profileStatus = 'ERROR';
@@ -81,6 +83,26 @@ class StoreStudent extends StoreBase {
         } catch (err) {
             notificationHelper.showError(err.message);
             this.profileStatus = 'ERROR';
+        }
+    }
+
+    @action
+    public fetchMedicalInfo = async (uuid: string) => {
+        try {
+            if (this.medicalStatus !== 'FETCHING')
+                this.medicalStatus = 'FETCHING';
+
+            let res = (await StudentApi.get<ApiResponse>(`/medical-info/${uuid}`)).data;
+            if (res.status === 200) {
+                this.medicalStatus = 'SUCCESS';
+                this.medicalInfoData = res.payload.data;
+            } else {
+                notificationHelper.showError(res.message);
+                this.medicalStatus = 'ERROR';
+            }
+        } catch (err) {
+            notificationHelper.showError(err.message);
+            this.medicalStatus = 'ERROR';
         }
     }
 

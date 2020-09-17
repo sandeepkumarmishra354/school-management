@@ -11,7 +11,7 @@ interface Props {
 const pickerStyle: CSSProperties = {
     maxWidth: 200,
     borderRadius: 0,
-    marginRight: 15
+    marginRight: 15,
 }
 const styles: CSSProperties = {
     width: '100%', marginBottom: 15,
@@ -66,7 +66,7 @@ export default class FeeFilter extends Component<Props, {}> {
                     onChange={(value) => { this.status = value }} />
                 <Button
                     className='filter-btn'
-                    color='blue'
+                    style={{ backgroundColor:'#3498FF',color:'#fff'}}
                     disabled={this.props.storeFee.listFetching}
                     onClick={() => {
                         this.props.storeFee.fetchList({

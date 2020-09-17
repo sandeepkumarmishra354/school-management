@@ -15,7 +15,7 @@ export default class ProfileOfficialInfo extends Component<Props,{}> {
   render() {
     return (
       <div style={{ ...this.props.style, marginTop: 20, backgroundColor: '#fff', padding: 15, border: '0.5px solid #EAF0F1', borderRadius: 8 }}>
-        <h6 style={{ color: '#0A79DF' }}>
+        <h6 style={{ color: '#3498FF' }}>
           <Icon icon='building' style={{ marginRight: 15 }} />
           Official Details
         </h6>

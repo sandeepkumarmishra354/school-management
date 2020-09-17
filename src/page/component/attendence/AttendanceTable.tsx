@@ -9,12 +9,12 @@ interface Props {
 }
 
 const headerCellStyle: CSSProperties = {
-    color: 'blue',
+    color: '#000',
     fontWeight: 'bold',
     fontSize:15,
 }
 const cellStyle: CSSProperties = {
-    color: '#000',
+    color: '#535C68',
     cursor: 'pointer'
 }
 
@@ -35,7 +35,7 @@ export default class AttendenceTable extends Component<Props, {}> {
             <Table
                 bordered cellBordered
                 data={store.attendenceList}
-                height={700}
+                height={750}
                 hover={true} loading={store.fetching}>
                 <Table.Column flexGrow={1} align='center'>
                     <Table.HeaderCell style={headerCellStyle}>Id</Table.HeaderCell>

@@ -3,9 +3,10 @@ import { notificationHelper } from '../../../utils/NotificationHelper';
 import { BaseAPI } from '../../../axios/api';
 import { StoreBase } from '../store.base';
 
-class AuthStore extends StoreBase {
+export class AuthStore extends StoreBase {
     @observable isLogingIn = false;
     @observable loggedIn = true;
+    @observable showingResetDialog = false;
     @observable schoolName = 'Standard Academy';
 
     constructor() {
@@ -30,6 +31,11 @@ class AuthStore extends StoreBase {
     }
 
     @action
+    public showResetDialog = (show:boolean) => {
+        this.showingResetDialog = show;
+    }
+
+    @action
     public setLoggedIn = (status: boolean) => {
         this.loggedIn = status;
     }
@@ -42,7 +48,6 @@ class AuthStore extends StoreBase {
     public doFullCleanup = () => {
         //this function automatically runs after successfull logout
         //TODO clear all states here
-        notificationHelper.showInfo('full cleanup');
     }
 }
 

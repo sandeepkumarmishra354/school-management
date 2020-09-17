@@ -38,21 +38,21 @@ export default class QuickOptions extends PureComponent {
                 title='Quick Options'/>
                 <FlexboxGrid justify='space-around'>
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={7}>
-                        <Panel shaded header={Heading("Send Notification", <Icon icon="bell" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#E74292' }}>
+                        <Panel shaded header={Heading("Send Notification", <Icon icon="bell" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#e91e63' }}>
                             {Description("Send email or sms to students,teachers or guardians. Notify/Alert them about any information.")}
                             {QuickButton("Notify")}
                         </Panel>
                     </FlexboxGrid.Item>
 
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={7}>
-                        <Panel shaded header={Heading("Fee Reminder", <Icon icon="send" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#1287A5' }}>
+                        <Panel shaded header={Heading("Fee Reminder", <Icon icon="send" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#673ab7' }}>
                             {Description("Send a custom email or sms to guardian regarding their due fee.")}
                             {QuickButton("Remind")}
                         </Panel>
                     </FlexboxGrid.Item>
 
                     <FlexboxGrid.Item style={{ marginBottom: 10 }} componentClass={Col} colspan={20} md={7}>
-                        <Panel shaded header={Heading("Create new record", <Icon icon="edit2" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#BB2CD9' }}>
+                        <Panel shaded header={Heading("Create new record", <Icon icon="edit2" style={{ marginLeft: 10 }} />)} style={{ ...panelStyles, backgroundColor: '#9c27b0' }}>
                             {Description("Add new student, teacher or guardian details in your database")}
                             {QuickButton("Create new")}
                         </Panel>

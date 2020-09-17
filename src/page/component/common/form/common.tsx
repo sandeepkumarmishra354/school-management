@@ -46,8 +46,8 @@ export class FormHeader extends React.PureComponent<{ heading: string, style?: C
                     width: '100%', height: 40,
                     display: 'flex', alignItems: 'center', paddingLeft: 20
                 }}>
-                    {this.props.icon && <Icon style={{ marginRight: 15, color: '#0A79DF' }} icon={this.props.icon} />}
-                    <h6 style={{ color: '#0A79DF' }}>{this.props.heading}</h6>
+                    {this.props.icon && <Icon style={{ marginRight: 15, color: '#3498FF' }} icon={this.props.icon} />}
+                    <h6 style={{ color: '#3498FF' }}>{this.props.heading}</h6>
                 </div>
                 {/*<Divider style={{ marginLeft: 10, marginRight: 10, marginTop: 5, height: 0.5 }} />*/}
             </div>

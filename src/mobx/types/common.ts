@@ -1,3 +1,16 @@
+export enum BloodGroup {
+    A_POSITIVE = 'A-POSITIVE',
+    B_POSITIVE = 'B-POSITIVE',
+    O_POSITIVE = 'O-POSITIVE',
+    AB_POSITIVE = 'AB-POSITIVE',
+    // status
+    A_NEGATIVE = 'A-NEGATIVE',
+    B_NEGATIVE = 'B-NEGATIVE',
+    O_NEGATIVE = 'O-NEGATIVE',
+    AB_NEGATIVE = 'AB-NEGATIVE',
+    NONE = 'NONE'
+}
+
 export interface AddressOption {
     city: string,
     state: string,
@@ -35,6 +48,26 @@ export interface UploadedDocs {
     createdAt: Date,
     name: string,
     mimetype: string,
-    note:string,
-    title:string,
+    note: string,
+    title: string,
+}
+
+export interface MedicalInfoData {
+    createdAt: Date,
+    updatedAt: Date,
+    schoolId: string,
+    uuid: string,
+    userId: string,
+    userType: 'TEACHER' | 'STUDENT',
+    bloodGroup: BloodGroup,
+    allergies: string,
+    asthma: boolean,
+    diabetes: boolean,
+    hearingProblem: boolean,
+    speakingProblem: boolean,
+    visionProblem: boolean,
+    heartCondition: string,
+    physicalDisability: string,
+    skinCondition: string,
+    otherIllness: string,
 }

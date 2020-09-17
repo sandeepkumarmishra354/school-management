@@ -84,6 +84,8 @@ class StoreManagement extends StoreBase {
     @action
     public doFullCleanup = () => {
         this.studentTeacherDocs = [];
+        this.fetching = false;
+        this.uploading = false;
     }
 }
 

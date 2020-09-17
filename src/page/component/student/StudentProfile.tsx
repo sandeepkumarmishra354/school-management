@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
-import { Panel, Breadcrumb, Loader, Message, Button, Icon } from 'rsuite';
+import { Panel, Breadcrumb, Loader, Message, Button, Icon, ButtonToolbar, ButtonGroup } from 'rsuite';
 import { storeStudent } from '../../../mobx/store/student/store.student';
 import { observer } from 'mobx-react';
 import ProfilePhotoInfo from '../common/profile/ProfilePhotoInfo';
@@ -13,6 +13,7 @@ import AlertDeleteDialog from '../common/AlertDeleteDialog';
 import ProfileDocsList from '../common/profile/ProfileDocsList';
 import FileUploadDialog from '../common/FileUploadDialog';
 import { storeManagement } from '../../../mobx/store/management/store.management';
+import ProfileMedicalInfo from '../common/profile/ProfileMedicalInfo';
 
 const NavLink = (props: any) => (
   <Breadcrumb.Item
@@ -45,6 +46,7 @@ class StudentProfile extends Component<Props, State> {
     let { params } = this.props.match as any;
     let uuid = params.uid;
     this.props.store.fetchProfile(uuid);
+    this.props.store.fetchMedicalInfo(uuid);
   }
 
   componentWillUnmount = () => {
@@ -73,6 +75,46 @@ class StudentProfile extends Component<Props, State> {
     );
   }
 
+  private getButtonToolbar = () => (
+    <ButtonToolbar>
+      <ButtonGroup>
+        <Button color='orange' size='sm'>
+          <Icon icon='pencil' style={{ marginRight: 5 }} />
+            EDIT
+          </Button>
+        <Button
+          color='green'
+          size='sm'
+          onClick={() => {
+            this.setState({ showUploadDialog: true });
+          }}>
+          <Icon icon='file-upload' style={{ marginRight: 5 }} />
+            UPLOAD
+          </Button>
+        <Button
+          color='blue' size='sm'
+          onClick={() => {
+            this.setState({ showSmsDialog: true });
+          }}>
+          <Icon icon='reply' style={{ marginRight: 5 }} />
+            EMAIL / SMS
+          </Button>
+        <Button color='violet' size='sm'>
+          <Icon icon='file-excel-o' style={{ marginRight: 5 }} />
+            REPORT
+          </Button>
+        <Button
+          color='red' size='sm'
+          onClick={() => {
+            this.setState({ showDeleteDialog: true });
+          }}>
+          <Icon icon='trash' style={{ marginRight: 5 }} />
+            DELETE
+          </Button>
+      </ButtonGroup>
+    </ButtonToolbar>
+  );
+
   private getContent = () => {
     let status = this.props.store.profileStatus;
     if (status === 'ERROR')
@@ -87,41 +129,8 @@ class StudentProfile extends Component<Props, State> {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ marginBottom: 15, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-          <Button color='orange' size='xs' style={{ marginRight: 8 }}>
-            <Icon icon='pencil' style={{ color: '#fff', marginRight: 5 }} />
-            EDIT
-          </Button>
-          <Button
-            color='green'
-            size='xs' style={{ marginRight: 8 }}
-            onClick={() => {
-              this.setState({ showUploadDialog: true });
-            }}>
-            <Icon icon='file-upload' style={{ color: '#fff', marginRight: 5 }} />
-            UPLOAD
-          </Button>
-          <Button
-            color='blue' size='xs'
-            style={{ marginRight: 8 }}
-            onClick={() => {
-              this.setState({ showSmsDialog: true });
-            }}>
-            <Icon icon='reply' style={{ color: '#fff', marginRight: 5 }} />
-            EMAIL / SMS
-          </Button>
-          <Button color='violet' size='xs' style={{ marginRight: 8 }}>
-            <Icon icon='file-excel-o' style={{ color: '#fff', marginRight: 5 }} />
-            REPORT
-          </Button>
-          <Button
-            color='red' size='xs'
-            onClick={() => {
-              this.setState({ showDeleteDialog: true });
-            }}>
-            <Icon icon='trash' style={{ color: '#fff', marginRight: 5 }} />
-            DELETE
-          </Button>
+        <div style={{ width: '100%', marginBottom: 15, display: 'flex', justifyContent: 'flex-end' }}>
+          {this.getButtonToolbar()}
         </div>
         <ProfilePhotoInfo
           photo='https://upload.wikimedia.org/wikipedia/en/b/b9/Ootp076.jpg'
@@ -156,10 +165,16 @@ class StudentProfile extends Component<Props, State> {
             date={data.admissionDate} />
         </div>
         <ProfileDocsList
-          style={{ width: '100%', marginBottom: 50 }}
+          style={{ width: '100%' }}
           store={storeManagement}
           userId={(this.props.match.params as any).uid}
           userType='STUDENT' />
+          <ProfileMedicalInfo
+          style={{width:'100%',marginBottom:50}}
+          userId={(this.props.match.params as any).uid}
+          userType='STUDENT'
+          status={this.props.store.medicalStatus}
+          data={this.props.store.medicalInfoData}/>
       </div>
     );
   }
@@ -167,12 +182,13 @@ class StudentProfile extends Component<Props, State> {
   render() {
     return (
       <Panel style={{ marginTop: -25 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Breadcrumb>
-            <NavLink to='/'>Home</NavLink>
-            <NavLink to='/student'>Students</NavLink>
-            <NavLink to='' active>Profile</NavLink>
-          </Breadcrumb>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Button
+          onClick={this.props.history.goBack}
+            style={{ backgroundColor: '#DAE0E2', marginBottom: 40}}>
+            <Icon icon='left' style={{marginRight:10}}/>
+            Go Back
+          </Button>
         </div>
         {this.getContent()}
         <EmailSmsSendDialog
