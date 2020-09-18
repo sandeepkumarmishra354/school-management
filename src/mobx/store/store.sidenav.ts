@@ -9,7 +9,7 @@ export enum NavOption {
 
 class SidenavStore extends StoreBase {
     @observable expanded: boolean = true;
-    @observable currentNav: NavOption = NavOption.DASHBOARD;
+    @observable currentNav: NavOption | string = NavOption.DASHBOARD;
 
     private readonly expandedWidth = 230;
     private readonly collapsedWidth = 56;

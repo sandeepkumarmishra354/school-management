@@ -8,7 +8,7 @@ import { ConfigSideNav } from '../../../config/sidenav_config';
 interface Props {
     setNav: (nav: NavOption) => void,
     expand: boolean,
-    nav: NavOption
+    nav: NavOption|string
 }
 
 @observer
