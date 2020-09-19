@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import LibraryBookList from './component/LibraryBookList';
 import LibraryDelete from './component/LibraryDelete';
 import LibraryIssuedBook from './component/LibraryIssuedBook';
@@ -8,21 +8,22 @@ import LibraryReport from './component/LibraryReport';
 class _RouteLibrary extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/book-list'>
+            <Switch>
+                <Route exact path={`${path}/book-list`}>
                     <LibraryBookList/>
                 </Route>
-                <Route path='/delete'>
+                <Route exact path={`${path}/delete`}>
                     <LibraryDelete/>
                 </Route>
-                <Route path='/book-issued'>
+                <Route exact path={`${path}/book-issued`}>
                     <LibraryIssuedBook/>
                 </Route>
-                <Route path='/report'>
+                <Route exact path={`${path}/report`}>
                     <LibraryReport/>
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

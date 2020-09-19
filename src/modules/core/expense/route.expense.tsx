@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import ExpenseAdd from './component/ExpenseAdd';
 import ExpenseList from './component/ExpenseList';
 import ExpenseReport from './component/ExpenseReport';
@@ -7,18 +7,19 @@ import ExpenseReport from './component/ExpenseReport';
 class _RouteExpense extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/add'>
+            <Switch>
+                <Route exact path={`${path}/add`}>
                     <ExpenseAdd/>
                 </Route>
-                <Route path='/list'>
+                <Route exact path={`${path}/list`}>
                     <ExpenseList/>
                 </Route>
-                <Route path='/report'>
+                <Route exact path={`${path}/report`}>
                     <ExpenseReport/>
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

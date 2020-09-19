@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import MasterCreateCourse from './component/MasterCreateCourse';
 import MasterCreateFee from './component/MasterCreateFee';
 import MasterCreatePayroll from './component/MasterCreatePayroll';
@@ -8,21 +8,22 @@ import MasterCreateSession from './component/MasterCreateSession';
 class _RouteMasters extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/create-course'>
+            <Switch>
+                <Route exact path={`${path}/create-course`}>
                     <MasterCreateCourse />
                 </Route>
-                <Route path='/create-fee'>
+                <Route exact path={`${path}/create-fee`}>
                     <MasterCreateFee />
                 </Route>
-                <Route path='/create-payroll'>
+                <Route exact path={`${path}/create-payroll`}>
                     <MasterCreatePayroll />
                 </Route>
-                <Route path='/create-session'>
+                <Route exact path={`${path}/create-session`}>
                     <MasterCreateSession />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

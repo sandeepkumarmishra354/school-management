@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import SettingGeneral from './component/SettingGeneral';
 import SettingPayment from './component/SettingPayment';
 import SettingCommunication from './component/SettingsCommunication';
@@ -7,18 +7,19 @@ import SettingCommunication from './component/SettingsCommunication';
 class _RouteSetting extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/general'>
+            <Switch>
+                <Route exact path={`${path}/general`}>
                     <SettingGeneral/>
                 </Route>
-                <Route path='/payment'>
+                <Route exact path={`${path}/payment`}>
                     <SettingPayment/>
                 </Route>
-                <Route path='/communication'>
+                <Route exact path={`${path}/communication`}>
                     <SettingCommunication/>
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

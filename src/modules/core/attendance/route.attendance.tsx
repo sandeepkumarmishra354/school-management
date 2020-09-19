@@ -1,20 +1,21 @@
 import React, {  PureComponent } from 'react'
-import { RouteComponentProps, Router, Route, withRouter } from 'react-router-dom';
+import { RouteComponentProps, Route, withRouter, Switch } from 'react-router-dom';
 import AttendanceTeacher from './component/AttendanceTeacher';
 import AttendanceStudent from './component/AttendanceStudent';
 
 class _RouteAttendance extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/student'>
+            <Switch>
+                <Route exact path={`${path}/student`}>
                     <AttendanceStudent/>
                 </Route>
-                <Route path='/teacher'>
+                <Route exact path={`${path}/teacher`}>
                     <AttendanceTeacher />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

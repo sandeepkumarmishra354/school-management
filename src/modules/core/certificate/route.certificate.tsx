@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import CertificateStudent from './component/CertificateStudent';
 import CertificateTeacher from './component/CertificateTeacher';
 import IdCardStudent from './component/IdCardStudent';
@@ -8,21 +8,22 @@ import IdCardTeacher from './component/IdCardTeacher';
 class _RouteCertificate extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/student'>
+            <Switch>
+                <Route exact path={`${path}/student`}>
                     <CertificateStudent />
                 </Route>
-                <Route path='/teacher'>
+                <Route exact path={`${path}/teacher`}>
                     <CertificateTeacher />
                 </Route>
-                <Route path='/id-student'>
+                <Route exact path={`${path}/id-student`}>
                     <IdCardStudent />
                 </Route>
-                <Route path='/id-teacher'>
+                <Route exact path={`${path}/id-teacher`}>
                     <IdCardTeacher />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import InventoryAdd from './component/InventoryAdd';
 import InventoryList from './component/InventoryList';
 import InventoryReport from './component/InventoryReport';
@@ -7,18 +7,19 @@ import InventoryReport from './component/InventoryReport';
 class _RouteInventory extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/add'>
+            <Switch>
+                <Route exact path={`${path}/add`}>
                     <InventoryAdd />
                 </Route>
-                <Route path='/list'>
+                <Route exact path={`${path}/list`}>
                     <InventoryList />
                 </Route>
-                <Route path='/report'>
+                <Route exact path={`${path}/report`}>
                     <InventoryReport />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

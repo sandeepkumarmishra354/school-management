@@ -1,77 +1,38 @@
 import { History } from 'history';
-import { NavOption, sidenavStore } from '../mobx/store/store.sidenav';
-import { alertHelper } from './Alerthelper';
+import { RouteUrlMap } from '../config/sidenav_config';
+import { sidenavStore } from '../mobx/store/store.sidenav';
 
 class RouteHandler {
     private _history!: History;
-
-    private routeMap:any = {
-        'dashboard': NavOption.DASHBOARD,
-        'student': NavOption.STUDENT,
-        'teacher': NavOption.TEACHER,
-        'attendance': NavOption.ATTENDENCE_MANAGEMENT,
-        'fee': NavOption.FEE_COLLECTION,
-        'help': NavOption.HELP,
-        'salery': NavOption.SALERY_MANAGEMENT,
-        'setting': NavOption.SETTING,
-        'stats': NavOption.STATS,
-        'masters': NavOption.MASTERS
+    private routeMapUrl: any = {
+        ...RouteUrlMap.academics,
+        ...RouteUrlMap.attendance,
+        ...RouteUrlMap.certificate_id,
+        ...RouteUrlMap.communication,
+        ...RouteUrlMap.expense,
+        ...RouteUrlMap.fee_management,
+        ...RouteUrlMap.hostel,
+        ...RouteUrlMap.inventory,
+        ...RouteUrlMap.library,
+        ...RouteUrlMap.master,
+        ...RouteUrlMap.payroll_management,
+        ...RouteUrlMap.settings,
+        ...RouteUrlMap.student,
+        ...RouteUrlMap.teacher,
+        ...RouteUrlMap.transport,
+        'dashboard': RouteUrlMap.dashboard,
+        'help': RouteUrlMap.help,
     };
-
-    private initNav = async (path:string) => {
-        let paths = path.split('/').filter((value) => value !== '');
-        let currentNav = paths[0];
-        sidenavStore.setCurrentNav(this.routeMap[currentNav]);
-    }
 
     public setHistory = (history: History) => {
         this._history = history;
-        this.initNav(history.location.pathname);
-        history.listen((location) => {
-            this.initNav(location.pathname);
-        });
     }
 
     public get history() { return this._history; }
 
-    public handleSideNavOptions = (nav:NavOption) => {
-        alertHelper.showInfo(nav.toString());
-        let path = '/';
-        switch (nav) {
-            case NavOption.DASHBOARD:
-                path = '/dashboard';
-                break;
-            case NavOption.ATTENDENCE_MANAGEMENT:
-                path = '/attendance';
-                break;
-            case NavOption.DASHBOARD:
-                path = '/';
-                break;
-            case NavOption.FEE_COLLECTION:
-                path = '/fee';
-                break;
-            case NavOption.HELP:
-                path = '/help';
-                break;
-            case NavOption.SALERY_MANAGEMENT:
-                path = '/salery';
-                break;
-            case NavOption.SETTING:
-                path = '/setting';
-                break;
-            case NavOption.STATS:
-                path = '/stats';
-                break;
-            case NavOption.STUDENT:
-                path = '/student';
-                break;
-            case NavOption.TEACHER:
-                path = '/teacher';
-                break;
-            case NavOption.MASTERS:
-                path = '/masters';
-                break;
-        }
+    public handleSideNavOptions = (nav: string) => {
+        sidenavStore.setCurrentNav(nav);
+        let path = this.routeMapUrl[nav];
         this.history.replace(path);
     }
 }

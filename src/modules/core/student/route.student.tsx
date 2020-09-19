@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import StudentList from './component/StudentList';
 import StudentNewEntry from './component/StudentNewEntry';
 import StudentBulkDelete from './component/StudentBulkDelete';
@@ -7,18 +7,19 @@ import StudentBulkDelete from './component/StudentBulkDelete';
 class _RouteStudent extends PureComponent<RouteComponentProps> {
 
     render() {
+        let {path} = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/list'>
+            <Switch>
+                <Route exact path={`${path}/list`}>
                     <StudentList/>
                 </Route>
-                <Route path='/new'>
+                <Route exact path={`${path}/new`}>
                     <StudentNewEntry/>
                 </Route>
-                <Route path='/bulk-delete'>
+                <Route exact path={`${path}/bulk-delete`}>
                     <StudentBulkDelete/>
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 }

@@ -1,20 +1,21 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import TransportRoutes from './component/TransportRoutes';
 import TransportVehicles from './component/TransportVehicles';
 
 class _RouteTransport extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/routes'>
+            <Switch>
+                <Route exact path={`${path}/routes`}>
                     <TransportRoutes/>
                 </Route>
-                <Route path='/vehicles'>
+                <Route exact path={`${path}/vehicles`}>
                     <TransportVehicles/>
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

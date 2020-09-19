@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route } from 'react-router-dom';
 import { RouteStudent } from './core/student/route.student';
 import { RouteTeacher } from './core/teacher/route.teacher';
 import { RouteAttendance } from './core/attendance/route.attendance';
@@ -15,12 +15,15 @@ import { RouteExpense } from './core/expense/route.expense';
 import { RouteSetting } from './core/setting/route.setting';
 import { RouteCommunication } from './core/communication/route.communication';
 import { RouteCertificate } from './core/certificate/route.certificate';
+import { RouteDashboard } from './core/dashboard/route.dashboard';
+import { RouteHelp } from './core/help/route.help';
 
 class _RouteModules extends PureComponent<RouteComponentProps> {
 
     render() {
         return (
-            <Router {...this.props}>
+            <React.Fragment>
+                <Route component={RouteDashboard} />
                 <Route path='/student' component={RouteStudent} />
                 <Route path='/teacher' component={RouteTeacher} />
                 <Route path='/attendance' component={RouteAttendance} />
@@ -36,7 +39,8 @@ class _RouteModules extends PureComponent<RouteComponentProps> {
                 <Route path='/setting' component={RouteSetting} />
                 <Route path='/communication' component={RouteCommunication} />
                 <Route path='/certificate' component={RouteCertificate} />
-            </Router>
+                <Route component={RouteHelp} />
+            </React.Fragment>
         );
     }
 

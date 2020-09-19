@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { RouteComponentProps, withRouter, Router, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import CommunicationStudent from './component/CommunicationStudent';
 import CommunicationTeacher from './component/CommunicationTeacher';
 import CommunicationGuardian from './component/CommunicationGuardian';
@@ -7,18 +7,19 @@ import CommunicationGuardian from './component/CommunicationGuardian';
 class _RouteCommunication extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/student'>
+            <Switch>
+                <Route exact path={`${path}/student`}>
                     <CommunicationStudent />
                 </Route>
-                <Route path='/teacher'>
+                <Route exact path={`${path}/teacher`}>
                     <CommunicationTeacher />
                 </Route>
-                <Route path='/guardian'>
+                <Route exact path={`${path}/guardian`}>
                     <CommunicationGuardian />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

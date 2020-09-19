@@ -25,7 +25,7 @@ export default class SideNav extends Component<Props, {}> {
                 <Sidenav.Body>
                     <Nav>
                         <Nav.Item
-                            eventKey={NavOption.DASHBOARD}
+                            eventKey={ConfigSideNav.dashboard}
                             icon={<Icon icon="dashboard" />}>
                             DASHBOARD
                         </Nav.Item>
@@ -156,7 +156,7 @@ export default class SideNav extends Component<Props, {}> {
                             <Dropdown.Item eventKey={ConfigSideNav.settings.payment} >Online payment</Dropdown.Item>
                         </Dropdown>
                         <Nav.Item
-                            eventKey={NavOption.HELP}
+                            eventKey={ConfigSideNav.help}
                             icon={<Icon icon="help-o" />}>
                            HELP
                         </Nav.Item>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { withRouter, Router, Route, RouteComponentProps } from 'react-router-dom';
+import { withRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import FeeCollect from './component/FeeCollect';
 import FeeReminder from './component/FeeReminder';
 import FeeDiscount from './component/FeeDiscount';
@@ -8,21 +8,22 @@ import FeeType from './component/FeeType';
 class _RouterFee extends PureComponent<RouteComponentProps> {
 
     render() {
+        let { path } = this.props.match;
         return (
-            <Router {...this.props}>
-                <Route path='/collect'>
+            <Switch>
+                <Route exact path={`${path}/collect`}>
                     <FeeCollect />
                 </Route>
-                <Route path='/reminder'>
+                <Route exact path={`${path}/reminder`}>
                     <FeeReminder />
                 </Route>
-                <Route path='/discount'>
+                <Route exact path={`${path}/discount`}>
                     <FeeDiscount />
                 </Route>
-                <Route path='/type'>
+                <Route exact path={`${path}/type`}>
                     <FeeType />
                 </Route>
-            </Router>
+            </Switch>
         );
     }
 

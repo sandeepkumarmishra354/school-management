@@ -1,15 +1,10 @@
 import { observable, computed, action } from "mobx";
+import { ConfigSideNav } from "../../config/sidenav_config";
 import { StoreBase } from "./store.base";
-
-export enum NavOption {
-    DASHBOARD, STUDENT, TEACHER, STATS, FEE_COLLECTION,
-    ATTENDENCE_MANAGEMENT, SETTING,
-    HELP,SALERY_MANAGEMENT,MASTERS
-};
 
 class SidenavStore extends StoreBase {
     @observable expanded: boolean = true;
-    @observable currentNav: NavOption | string = NavOption.DASHBOARD;
+    @observable currentNav: string = ConfigSideNav.dashboard;
 
     private readonly expandedWidth = 230;
     private readonly collapsedWidth = 56;
@@ -31,7 +26,7 @@ class SidenavStore extends StoreBase {
     }
 
     @action
-    public setCurrentNav = (nav: NavOption) => {
+    public setCurrentNav = (nav:string) => {
         if (nav !== this.currentNav)
             this.currentNav = nav;
     }
