@@ -3,20 +3,20 @@ import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom
 import StudentList from './component/StudentList';
 import StudentNewEntry from './component/StudentNewEntry';
 import StudentBulkDelete from './component/StudentBulkDelete';
+import { RouteUrlMap } from '../../../config/sidenav_config';
 
 class _RouteStudent extends PureComponent<RouteComponentProps> {
 
     render() {
-        let {path} = this.props.match;
         return (
             <Switch>
-                <Route exact path={`${path}/list`}>
+                <Route exact path={RouteUrlMap.student["student-list"]}>
                     <StudentList/>
                 </Route>
-                <Route exact path={`${path}/new`}>
+                <Route exact path={RouteUrlMap.student["student-new"]}>
                     <StudentNewEntry/>
                 </Route>
-                <Route exact path={`${path}/bulk-delete`}>
+                <Route exact path={RouteUrlMap.student["student-delete"]}>
                     <StudentBulkDelete/>
                 </Route>
             </Switch>

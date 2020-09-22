@@ -4,23 +4,23 @@ import FeeCollect from './component/FeeCollect';
 import FeeReminder from './component/FeeReminder';
 import FeeDiscount from './component/FeeDiscount';
 import FeeType from './component/FeeType';
+import { RouteUrlMap } from '../../../config/sidenav_config';
 
 class _RouterFee extends PureComponent<RouteComponentProps> {
 
     render() {
-        let { path } = this.props.match;
         return (
             <Switch>
-                <Route exact path={`${path}/collect`}>
+                <Route exact path={RouteUrlMap.fee_management["fee-collect"]}>
                     <FeeCollect />
                 </Route>
-                <Route exact path={`${path}/reminder`}>
+                <Route exact path={RouteUrlMap.fee_management["fee-reminder"]}>
                     <FeeReminder />
                 </Route>
-                <Route exact path={`${path}/discount`}>
+                <Route exact path={RouteUrlMap.fee_management["fee-discount"]}>
                     <FeeDiscount />
                 </Route>
-                <Route exact path={`${path}/type`}>
+                <Route exact path={RouteUrlMap.fee_management["fee-type"]}>
                     <FeeType />
                 </Route>
             </Switch>
