@@ -1,13 +1,9 @@
 import React from 'react';
-import { authStore } from './mobx/store/auth/store.auth';
-import HomePage from './page/HomePage';
 import { observer } from 'mobx-react';
-import { sidenavStore } from './mobx/store/store.sidenav';
-import LoginPage from './page/LoginPage';
-import { BrowserRouter } from 'react-router-dom';
+import SchoolManagement from './ui/SchoolManagement';
 
 interface Props {
-  authStore: typeof authStore,
+  //
 }
 
 @observer
@@ -18,15 +14,7 @@ export default class App extends React.Component<Props, {}> {
   }
 
   render() {
-    if (this.props.authStore.loggedIn)
-      return(
-        <BrowserRouter>
-          <HomePage
-            navStore={sidenavStore} />
-        </BrowserRouter>
-      );
-    else
-      return <LoginPage store={authStore} />
+    return <SchoolManagement/>
   }
 
 }

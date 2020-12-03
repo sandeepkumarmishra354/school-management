@@ -6,7 +6,7 @@ const addWebpackTarget = (target) => (config) => {
 };
 
 module.exports = override(
-  setWebpackTarget("electron-renderer"),
+  setWebpackTarget("web"),
   fixBabelImports("import", {
     libraryName: "antd",
     libraryDirectory: "es",

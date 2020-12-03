@@ -1,0 +1,39 @@
+.sidebar-option {
+    padding: 4px 8px 4px 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid #EAF0F1;
+    color: #47535E;
+}
+.sidebar-option:hover {
+    background-color: #DAE0E2;
+    cursor: pointer;
+}
+.sidebar-selected {
+    padding: 4px 8px 4px 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid #EAF0F1;
+    color: #fff;
+    background-color: #47535E;
+}
+.app-header {
+    box-shadow: 0px 4px 6px -8px #111;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+.my-select-option {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #74B9FF;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: #fff;
+}
+.my-select-option:hover {
+    border-color: #0A79DF;
+    border-width: 1px;
+}
+.my-select-option option {
+    font-size: 16px;
+}
